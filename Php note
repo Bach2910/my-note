@@ -1,0 +1,192 @@
+***PHP***
+PHP là ngôn ngữ kịch bản dành cho mục đích chung và phía máy chủ, đặc biệt phù hợp để phát triển web.
+PHP có hai ứng dụng chính:
+- Kịch bản phía máy chủ – PHP rất phù hợp để phát triển các trang web và ứng dụng web động.
+- Tập lệnh dòng lệnh – giống như Python và Perl, bạn có thể chạy tập lệnh PHP từ dòng lệnh để thực hiện các tác vụ quản trị như gửi email và tạo tệp PDF.
+- Cú pháp Php:      <?php  ... ?>
+- Cấu trúc PHP, tên hàm, tên lớp không phân biệt chữ hoa chữ thường, trong khi các biến phân biệt chữ hoa chữ thường.
+- Một câu lệnh kết thúc bằng dấu chấm phẩy (;).
+- khoảng trắng và ngắt dòng không quan trọng trong PHP; tận dụng chúng để làm cho mã dễ đọc hơn.
+
+%PHP Variables %
+Khi xác định một biến, bạn cần tuân theo các quy tắc sau:
+- Tên biến phải bắt đầu bằng ký hiệu đô la ( $).
+- Ký tự đầu tiên sau ký hiệu đô la ( $) phải là một chữ cái ( a-z) hoặc dấu gạch dưới ( _).
+- Các ký tự còn lại có thể là dấu gạch dưới, chữ cái hoặc số.
+VD:
+<?php $title = 'code is hard';?>
+<?php echo $title; ?></h1>
+Cách rút gọn
+<?php $title = 'code is hard';?>
+<h1><?= $title;?></h1>
+
+-Có thể tách thành 2 file riêng biệt bằng lệnh require
+
+%PHP Constants%
+Để xác định một hằng số, bạn sử dụng define() hàm. Hàm define() lấy tên của hằng số làm đối số đầu tiên và giá trị của hằng số làm đối số thứ hai.
+
+VD:
+<?php
+
+define('WIDTH','1140px');
+echo WIDTH;
+^^The const keyword^^
+
+const CONSTANT_NAME = value;
+
+Trong cú pháp này, bạn xác định tên hằng sau consttừ khóa. Để gán một giá trị cho một hằng số, bạn sử dụng toán tử gán (=) và giá trị của hằng số. Giá trị hằng số có thể là vô hướng
+Ví dụ: một số, một chuỗi hoặc một mảng.
+^^define vs const^^
+- the define()là một hàm trong khi the constlà một cấu trúc ngôn ngữ.
+VD:
+<?php
+
+if(condition)
+{
+    define('WIDTH', '1140px');
+}
+không thể sử dụng const từ khóa để xác định hằng số theo cách này. Ví dụ: cú pháp của đoạn mã sau không hợp lệ:
+
+- hàmdefine() cho phép bạn xác định một hằng số có tên xuất phát từ một biểu thức
+VD:
+<?php
+
+define('PREFIX', 'OPTION');
+
+
+define(PREFIX . '_1', 1);
+define(PREFIX . '_2', 2);
+define(PREFIX . '_3', 3);
+***Comment PHP***
+- là phần quan trọng của mã vì chúng giải thích tại sao mã làm những gì nó phải làm.
+- PHP hỗ trợ cả chú thích một dòng và nhiều dòng.
+- Nhận xét một dòng bắt đầu bằng # hoặc // .
+- Nhận xét nhiều dòng bắt đầu bằng /* và kết thúc bằng */.
+
+***PHP Data type***
+PHP có bốn kiểu vô hướng, bốn kiểu hợp chất và hai kiểu đặc biệt.
++ Scalar types(tỷ lệ) : interger(…-3,-2-,-1,0,1,2,3…),float(1.2,1.3,...), boolean(True and false),String('name',...)
++ Compound types(hợp chất):array and object
++ Special types(đặc biệt): null and resource.
+PHP type casting cho phép bạn chuyển đổi một giá trị từ kiểu này sang kiểu khác.
+VD:
+    {
+    echo (int)12.9 . '<br>'; // 12
+    echo (int)-12.9 . '<br>'; // -12
+    }
+
+   {
+    $message = 'Hi';
+    $num = (int) $message;
+    echo $num; // 0
+    }
++ Cast to a float:
+        {   $amount = (float)100;
+            echo $amount; // 100
+        }
++ Cast to a string:
+        {    $amount = 100;
+             echo (string)$amount . " USD"; // 100 USD
+        }
+Sử dụng toán tử truyền kiểu để truyền một giá trị sang kiểu mong muốn.
+PHP là một ngôn ngữ được gõ lỏng lẻo.PHP xác định loại biến dựa trên giá trị.
+Khi so sánh các giá trị của các loại khác nhau, PHP ngầm chuyển đổi chúng thành cùng một loại có thể so sánh được.
+
+***OPERATORS***
+PHP sử dụng the =để biểu diễn toán tử gán. Sau đây là cú pháp của toán tử gán:
+
+$variable_name = expression;
++ Arithmetic assignment operators: Đôi khi, bạn muốn tăng một biến theo một giá trị cụ thể.
+VD:
+      {
+        $counter = 1;
+        $counter = $counter + 1;
+      }
++ Concatenation assignment operator: PHP sử dụng toán tử nối (.) để nối hai chuỗi. Ví dụ:
+        {
+            $greeting = 'Hello ';
+            $name = 'John';
+        }
+        $greeting = $greeting . $name;
+        echo $greeting;
+%PHP Comparison Operators%
+Toán tử so sánh cho phép bạn so sánh hai giá trị và trả về true nếu so sánh là đúng và false ngược lại.
+các phép so sánh: ==(tương đương vs), !=,<>(không bằng), ===(giống hệt), !==(không giống vs), >(lớn hơn)
+                  >(lơn hơn), >=(lớn hơn bằng), <(nhỏ hơn), <=(nhỏ hơn bằng)
+%PHP AND Operator%
++ chấp nhận hai toán hạng và trả về true nếu cả hai toán hạng là true; nếu không, nó sẽ trả về false.
+PHP sử dụng and từ khóa để biểu diễn toán tử logic AND:
+
+expression1 and expression2
+
++ Short-circuiting: Khi giá trị của toán hạng đầu tiên là false, toán tử logic AND biết rằng kết quả cũng phải là false.
+Trong trường hợp này, nó không đánh giá toán hạng thứ hai. Quá trình này được gọi là ngắn mạch.
+%PHP OR Operator%
++ chấp nhận hai toán hạng và trả về truenếu một trong hai toán hạng là đúng; nếu không, nó sẽ trả về false.
+
+    expression1 or expression2
+or
+    expression1 || expression2
+
++ Short-circuiting: Khi toán hạng đầu tiên là true, toán tử logic OR biết rằng kết quả cũng phải là true.
+Trong trường hợp này, nó không đánh giá toán hạng thứ hai. Quá trình này được gọi là ngắn mạch.
+
+%PHP NOT operator%
++ trả về true nếu toán hạng là false và trả về falsenếu toán hạng là true.
+PHP sử dụng từ khóa both notvà ( !) để biểu diễn toán tử logic NOT.
+
+        not expression
+    or
+
+        ! expression
+
+***Control flow***
++ if lệnh thực thi một câu lệnh if mà một điều kiện đánh giá là true.
+Luôn sử dụng dấu ngoặc nhọn ngay cả khi bạn có một câu lệnh để thực hiện trong ifcâu lệnh. Nó làm cho mã rõ ràng hơn.
+Sử dụng mô hình if ( value == $variable_name ) {}để tránh những sai lầm có thể xảy ra.
++ if else: Sử dụng câu lệnh PHP if...else để thực thi một khối mã khi một điều kiện là true.
++ if else if:- Sử dụng if...else if câu lệnh để đánh giá nhiều biểu thức và thực thi các khối mã theo điều kiện.
+            - Chỉ if...else if cú pháp thay thế hỗ trợ, if...else ifkhông.
+            - Hãy sử dụng else if bất cứ khi nào có thể để làm cho mã của bạn nhất quán hơn.
++ switch :Sử dụng câu lệnh PHP switch thay vì một loạt ifcâu lệnh trên cùng một biểu thức.
++ for: Sử dụng câu lệnh PHP for để thực thi một khối mã trong một số lần xác định.
++ while: Sử dụng câu lệnh vòng lặp while của PHP để thực thi một khối mã miễn là một điều kiện là đúng.
++ do while: Câu lệnh PHP do...while cho phép bạn thực thi lặp đi lặp lại một khối mã dựa trên biểu thức Boolean.
++ break: Sử dụng break câu lệnh để chấm dứt ngay lập tức việc thực hiện các vòng lặp for, do...while, và while hiện tại.
++ continue: Sử dụng continue câu lệnh để bỏ qua tất cả các câu lệnh theo sau nó và bắt đầu lần lặp tiếp theo từ đầu.
+
+***PHP functions***
+function là một khối mã được đặt tên thực hiện một tác vụ cụ thể.
+
+    function function_name() {
+        statement;
+    }
+
+Sử dụng các chức năng để tạo mã có thể tái sử dụng.
+Sử dụng return câu lệnh để trả về một giá trị từ một hàm.
+
+%PHP Function Parameters(Tham số chức năng PHP)***
+- Khi gọi concat()hàm, bạn cần truyền hai đối số tương ứng với các tham số
+VD:
+    function concat($str1, $str2)
+    {
+    	return $str1 . $str2;
+    }
+
+    $greeting = concat('Welcome ', 'Admin');
+    echo $greeting;
+
+- Phân tách các tham số bằng dấu phẩy ( ,).
+- Theo mặc định, các đối số được truyền theo giá trị trong PHP.
+- Thêm các tham số bằng dấu và ( &) để truyền đối số theo tham chiếu.
+
+%PHP Default Parameters(tham số theo hàm mặc định)%
+Sử dụng các tham số mặc định để đơn giản hóa việc gọi hàm.
+Các tham số mặc định là tùy chọn.
+
+%PHP Named Arguments(đối số)%
+Sử dụng Arguments có tên PHP để truyền đối số cho một hàm dựa trên tên tham số.
+Đặt Arguments được đặt tên sau các đối số vị trí trong các lời gọi hàm.
+
+%PHP Variable Scopes(Phạm vi biến)%
+Trong PHP, các biến có bốn loại phạm vi:Local, Global, Static, Function parameters

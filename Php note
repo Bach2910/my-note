@@ -261,4 +261,20 @@ func_get_args()trả về một mảng chứa tất cả các đối số. Để
 - Sử dụng ...toán tử để xác định hàm biến thiên.
 - Chỉ tham số cuối cùng có thể là biến.
 *** Array ***
-fdfsedsadddaw
+%How to create array
+
+            <?php
+
+            $empty_array = array();
+or
+            $empty_array = [];
+
+- Dùng lệnh var_dump(); để hiện thị hàm or dùng lệnh print_r();
+- Dùng lệnh $array_name[index] truy cập vào từng phần tử của mảng
+- Dùng lệnh $array_name[] = new_element; để thêm 1 phần tử mới vào mảng
+- Thay đổi phẩn tử $array_name[index]= new_element
+- unset dùng để loại bỏ các phần tử trong mảng
+- lấy kích thước dùng lệnh count
+
+%Mảng kết hợp Php:
+How to use: $html = []; or $html = array();

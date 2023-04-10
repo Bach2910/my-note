@@ -273,8 +273,19 @@ or
 - Dùng lệnh $array_name[index] truy cập vào từng phần tử của mảng
 - Dùng lệnh $array_name[] = new_element; để thêm 1 phần tử mới vào mảng
 - Thay đổi phẩn tử $array_name[index]= new_element
-- unset dùng để loại bỏ các phần tử trong mảng
+- unset($array_name[index])  dùng để loại bỏ các phần tử trong mảng
 - lấy kích thước dùng lệnh count
 
 %Mảng kết hợp Php:
 How to use: $html = []; or $html = array();
+lệnh foreach: lệnh lặp lại trên tất cả các phần tử trong một mảng, mỗi lần một phần tử.
+VD:
+        $colors = ['red', 'green', 'blue'];
+
+        foreach ($colors as $color) {
+            echo $color . '<br>';
+        }
+How to use: foreach with mảng kết hợp:(xem thêm trong bài giảng)
+      foreach ($array_name as $key => $value) {
+         //process element here;
+      }

@@ -289,3 +289,71 @@ How to use: foreach with mảng kết hợp:(xem thêm trong bài giảng)
       foreach ($array_name as $key => $value) {
          //process element here;
       }
+
+%PHP Multidimensional Array(Mảng đa chiều)
+how to use:
+
+ $task=[
+        ['like work', 5],
+        [' best game ever',6],
+        ['good job',2],
+        ['study',1],
+        ];
+    print_r($task);
++Lặp lại các phần tử trong mảng bằng lệnh foreach:
+How to use:
+
+    $tasks = [
+    	['Learn PHP programming', 2],
+    	['Practice PHP', 2],
+    	['Work', 8],
+    	['Do exercise', 1],
+    ];
+
+    foreach ($tasks as $task) {
+    	foreach ($task as $task_detail) {
+    		echo $task_detail . '<br>';
+    	}
+result:
+        Learn PHP programming
+        2
+        Practice PHP
+        2
+        Work
+        8
+        Do exercise
+        1
+% PHP array_unshift
+- Dùng để thêm 1 hay nhiều phần tử vào đầu mảng
+    array_unshift(ten mang,'ten phần tử new');
+
+- Dùng để thêm phần tử vào mảng đa chiều:
+    tenmang = ['new phần tử'] +tenmang;
+% PHP array_push
+- Dùng để thêm 1 hay nhiều phần tử vào cuối mảng
+array_push(tenmang,'new phần tử');
+- Dùng để thêm 1 hay nhiều phần tử vào cuối mảng kết hợp
+tenmang['newphantu'];
+
+% PHP array_pop:
+Dùng để xóa phần tử ở cuối mảng và trả về lại phần tử đó
+array_pop(tenmang);
+%PHP array_shift:
+Dùng để xóa phần tử ở đầu mảng và trả về lại nó
+arry_shift(tenmang);
+
+%PHP array_key:
+Dùng để tìm kiếm các khóa ở trong mảng:
+array_key(tenmang,khoa);
+
+%PHP array_key_exist
+Dùng để xem khóa có tồn tại ở trong mảng hay ko:
+array_exist(khoa cần tìm ,tenmang);
+
+%PHP in_array
+Dùng để kiểm tra kết quả ấy có tồn tại trong mảng hay ko:
+in_array(giá trị cần tìm , tenmang);
+
+%PHP array_reverse
+Dùng để tạo ra 1 mảng mới có các dữ liệu của mảng cũ nhưng bị đảo ngược các phần tử
+new mang = array_reverse(old mang)

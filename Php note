@@ -388,9 +388,17 @@ sort(tenmang, SORT_STRING | SORT_NATURAL);
 Hàm uasort()sắp xếp các phần tử của một mảng kết hợp với hàm so sánh do người dùng xác định và duy trì liên kết chỉ mục.
 
 %PHP asort
--Hàm asort dùng để sắp xếp các phần tử trong mảng kêt hợp theo thứ tự tăng dần
--Hàm arsort dùng để sắp xếp các phần tử trong mảng kết hợp theo thứ tự giảm dần
+-Hàm asort dùng để sắp xếp các phần tử trong mảng kêt hợp theo thứ tự tăng
 
+%PHP usort(đọc thêm về mảng đối tượng)
+-Hàm usort dùng để sắp xếp 1 mảng theo ý của mình
+Ký hiệu: + $x<$y:sắp xếp theo thứ tự giảm dần
+         + $x>$y:sắp xếp theo thứ tự tăng dần
+         + $x<=>$y:sắp xếp theo thứ tự tăng dần
+VS hàm là number
+    usort($number, fn($x, $y) => $x <=> $y);
+Vs hàm string:
+    usort($names, fn($x,$y) => strlen($x) <=> strlen($y));
 
 
 

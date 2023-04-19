@@ -374,8 +374,22 @@ EX:
     print_r($after);
 
 +++SORTING ARRAYS+++
+Hàm sort() dùng để sắp xếp các phần tử trong mảng theo thứ tự tăng dần
+Hàm rsort() dùng để sắp xếp các phần tử trong mảng theo thứ tự giảm dần
+sort(tenmang);
+-sử dụng hàm sort() để sắp xếp chuỗi
+sort(tenmang, SORT_STRING);
+-sử dụng hàm sort() để sắp xếp mảng chuỗi phân biet chữ in hoa vs chữ thg:
+sort(tenmang, SORT_FLAG_CASE | SORT_STRING);
+-sử dụng hàm sort() của PHP để sắp xếp một mảng các chuỗi bằng cách sử dụng “thứ tự tự nhiên”
+sort(tenmang, SORT_STRING | SORT_NATURAL);
 
+%PHP uasorf()[đọc trong bài thêm
+Hàm uasort()sắp xếp các phần tử của một mảng kết hợp với hàm so sánh do người dùng xác định và duy trì liên kết chỉ mục.
 
+%PHP asort
+-Hàm asort dùng để sắp xếp các phần tử trong mảng kêt hợp theo thứ tự tăng dần
+-Hàm arsort dùng để sắp xếp các phần tử trong mảng kết hợp theo thứ tự giảm dần
 
 
 

@@ -354,6 +354,26 @@ array_exist(khoa cần tìm ,tenmang);
 Dùng để kiểm tra kết quả ấy có tồn tại trong mảng hay ko:
 in_array(giá trị cần tìm , tenmang);
 
+%Php array_merge
+Dùng để kết hợp các phần tử trong 2 mảng vs nhau
+
+  mang = array_merge(mang1, mang2)
+
+Nếu phần mang1 bị trùng vs mang2 thì phần tử trong mang1 sẽ ghi đè lên mang2
+
 %PHP array_reverse
 Dùng để tạo ra 1 mảng mới có các dữ liệu của mảng cũ nhưng bị đảo ngược các phần tử
 new mang = array_reverse(old mang)
+
+%PHP Spread Operator(toán tử trải rộng)
+Dùng để hợp nhất 2 mảng bất kì lại thành 1
+How to use: ...array_var
+EX:
+    $before=[4,5];
+    $after=[1,2,3,...$before];
+    print_r($after);
+
+
+
+
+

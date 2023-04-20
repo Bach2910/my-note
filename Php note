@@ -400,5 +400,42 @@ VS hàm là number
 Vs hàm string:
     usort($names, fn($x,$y) => strlen($x) <=> strlen($y));
 
+%PHP ksorf
+- hàm ksorf dùng để sắp xếp các khóa của mảng kết hợp theo thứ tự tăng dần
+- hàm krsorf dùng để sắp xếp các khóa của mảng kết hợp theo thứ tự giảm dần
+ksorf(tenmang,SORT|STRING)
+
+%PHP uksorf(Đoc thêm)
+Sử dụng uksort()hàm để sắp xếp một mảng theo khóa bằng hàm so sánh do người dùng xác định
+
+(lên đọc thêm)+++PHP Anonymous Functions+++(lên đọc thêm)
+ĐN: Hàm ẩn danh là hàm ko có tên
+array_map:có chức năng để chấp nhận hàm gọi lại và một mảng. Nó áp dụng hàm gọi lại cho từng phần tử và bao gồm các kết quả trong một mảng mới.
+- Hàm ẩn danh có phạm vi của nó để có thể truy cấp dữ liệu của hàm cha thì t phải dùng use
+- use(tenmang)
+- Một hàm ẩn danh có thể được gán cho một biến, được truyền cho một hàm hoặc được trả về từ một hàm.
+
+%PHP arrow array
+bản update của hàm ẩn danh
+how to use: dùng fn($x,$y)=>$x==$y;
+dùng để truyền chức năng cho : fn(tenmang) => chucnang
+Hàm mũi tên có quyền truy cập tự động vào các biến trong phạm vi cha của nó.
+
+%PHP variable function(Đọc kĩ hơn nữa)
+Các hàm biến cho phép bạn sử dụng một biến giống như một hàm . Khi bạn thêm dấu ngoặc đơn ()vào một biến, PHP sẽ tìm hàm có tên trùng với giá trị của biến và thực thi nó
+Sử dụng $this->$variable()để gọi một phương thức của một lớp.
+Sử dụng className::$variable()để gọi một phương thức tĩnh của một lớp.
+
++++ADVANCED ARRAY OPERATIONS+++
+
+%ARRAY_MAP(read more)
+Sử dụng phương thức PHP array_map()để tạo một mảng mới bằng cách áp dụng hàm gọi lại cho mọi phần tử của một mảng khác.
+lên dùng hàm mũi tên hơn
+
+%ARRAY_FIlTER(read more)
+array_filter()hàm PHP để lọc các phần tử của một mảng bằng hàm gọi lại.
 
 
+%ARRAY_REDUCE(read more)
+Sử dụng hàm PHP array_reduce()để giảm một mảng thành một giá trị bằng cách sử dụng hàm gọi lại.
+array_reduce(tenmang,function(mangtrc , mangsau){}

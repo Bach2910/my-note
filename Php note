@@ -439,3 +439,5 @@ array_filter()hàm PHP để lọc các phần tử của một mảng bằng h�
 %ARRAY_REDUCE(read more)
 Sử dụng hàm PHP array_reduce()để giảm một mảng thành một giá trị bằng cách sử dụng hàm gọi lại.
 array_reduce(tenmang,function(mangtrc , mangsau){}
+
+abc

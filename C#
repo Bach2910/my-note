@@ -1,0 +1,17 @@
+Câu lệnh trong C#
+
+Console.WriteLine("Hello world from C#");
+Console.WriteLine("Press any key to quit");
+Console.ReadKey();
+ Các loại câu lệnh trong C#
+
+ Declaration statements: lệnh khai báo, dùng để khai báo các biến và hằng;
+ Expression statements: lệnh tính toán, thường gọi là biểu thức, dùng để thực hiện các tính toán trên dữ liệu và phải trả về giá trị có thể gắn cho biến;
+ Selection statements: lệnh lựa chọn, dùng trong các cấu trúc rẽ nhánh như if, else, switch, case;
+ Iteration statements: lệnh lặp, dùng để thực hiện nhiều lần một lệnh/khối lệnh, bao gồm do, for, foreach, in, while.
+
+ Khối code trong C#
+
+ Một chuỗi câu lệnh đơn có thể được nhóm lại với nhau tạo thành một khối lệnh (code block hoặc statement block).
+ Một khối lệnh là một danh sách các lệnh được đặt chung trong một cặp dấu ngoặc kép {}.
+ Các khối lệnh có thể lồng nhau. Như trong file mã nguồn dưới đây, toàn bộ thân của phương thức Main() ở trên là một khối code. Thân của cả lớp Program cũng là một khối code. Thân của namespace là một khối code. Ba khối code này lồng nhau.

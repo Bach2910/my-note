@@ -16,3 +16,23 @@ Console.ReadKey();
 
 Phần học lại về hướng đối tượng
  ** ** **
+
+ Tính trừu tượng (abstraction) mô tả một cách tổng quát hóa (tập trung vào thông tin cần thiết) mà không chi tiết thông tin về các đối tượng, không gắn cứng với một đối tượng cụ thể cần mô tả (triển khai với interface, abstract)
+ Tính đóng gói (encapsulation) dữ liệu đối tượng cố gắng như nằm trong một hộp đen, các thành phần khác bên ngoài đối tượng không trực tiếp tác động đến dữ liệu (bên ngoài truy cập, tác động thông qua các phương thức public cho phép, qua setter, getter ...)
+ Tính đa hình (polymorphism) đối tượng ứng xử khác nhau tùy trường hợp cụ thể
+ Tính kế thừa (inheritance) đặc tính của lớp được kế thừa từ một lớp khác
+
+Các Access Modifies
+ public : không giới hạn phạm vi truy cập
+ protected : chỉ truy cập trong nội bộ lớp hay các lớp kế thừa
+ private : (mặc định) chỉ truy cập được từ các thành viên của lớp chứa nó
+ internal : chỉ truy cập được trong cùng assembly (dll, exe)
+ protected internal: truy cập được khi cùng assembly hoặc lớp kế thừa
+ private protected: truy cập từ lớp chứa nó, lớp kế thừa nhưng phải cùng assembly
+
+Từ khóa this
+
+Từ khóa this dùng trong các phương thức của lớp, nó tham chiếu đến đối tượng hiện tại sinh ra từ lớp.
+
+Phương thức khởi tạo - Constructor
+Phương thức khởi tạo là phương thức của lớp, nó được thi hành ngay khi đối tượng được tạo (bởi toán tử new), phương thức khởi tạo có tên trùng với tên của lớp, không có kiểu trả về, bạn có thể tạo nhiều phương thức khởi tạo - các phương thức này đều cùng tên với tên lớp nhưng tham số khác nhau. Lúc này khi khởi tạo đối tượng với toán tử new tùy tham số khởi tạo mà nó sẽ gọi phương thức khởi tạo tương ứng.

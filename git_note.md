@@ -97,3 +97,10 @@ Giải quyết:
 
     git merge Bach2910/task12 --allow-unrelated-histories
 
+6:cach chuyen nhanh tu local sang remote
+
+    git fetch
+
+7:xoa bo duong dan hien tai
+    
+    git remote remove origin

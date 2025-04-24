@@ -45,12 +45,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
+    <style>
+
+    </style>
 </head>
 <body>
-<div class="row container">
+<div class="row container mt-5">
     <div class="right_side col-md-6 col-lg-6">
-        <div class="alert alert-primary" role="alert">
-            <?php echo $msg; ?>
+        <div role="alert">
+            <p id="msg" class="alert alert-primary" role="alert"><?php echo $msg; ?></p>
         </div>
         <form method="POST" onsubmit="return validate()">
             <div class="mb-3">
@@ -68,22 +71,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Name</th>
+                <th scope="col">MSV</th>
+                <th scope="col">Function</th>
             </tr>
             </thead>
             <tbody>
             <?php foreach ($_SESSION['student'] as $index => $student): ?>
                 <tr>
-                    <th scope="row"><?php echo $index ?></th>
                     <td><?php echo $student['name'] ?></td>
                     <td><?php echo $student['student_id'] ?></td>
                     <td>
                         <form method="POST">
-                            <input type="hidden" name="delete_id">
-                            <button type="submit">delete</button>
+                            <input type="hidden" name="delete_id" value="<?php echo $index?>">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('You sure that you want delete this student name <?php echo $student['name'] ?>')">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -91,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </table>
     </div>
     <form method="POST" action="reset.php">
-        <button type="submit" class="btn btn-danger mt-3" onclick="alert('ban chac la co muon xoa toan bo danh sach khong')">DELETE ALL ITEM</button>
+        <button type="submit" class="btn btn-danger mt-3" onclick="return confirm('ban chac la co muon xoa toan bo danh sach khong')">DELETE ALL ITEM</button>
     </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
@@ -104,9 +105,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     function validate() {
         const name = document.getElementById('name').value.trim();
         const id = document.getElementById('student_id').value.trim();
-
+        const msg = document.getElementById('msg')
         if (!name || !id) {
-            alert('Hay nhap lai du lieu')
+            msg.innerHTML = "hay nhap day du du lieu"
             return false
         }
         return true

@@ -36,6 +36,11 @@ Gộp nhánh:
 
 Kéo code mới nhất từ GitHub: git pull
 
+git log –oneline: dùng lệnh git log để xem lịch sử commit dòng mới nhất
+
+Xác định số lượng commit muốn gộp thành một và sử dụng lệnh git rebase: git rebase -i HEAD~N
+
+
 cac truong hop loi:
 
 1:  error: failed to push some refs to 'https://github.com/Bach2910/my-note.git'
@@ -104,3 +109,7 @@ Giải quyết:
 7:xoa bo duong dan hien tai
     
     git remote remove origin
+8: để tránh việc bị up lên sẽ up nhầm toàn bộ commit của file cữ
+
+    git checkout --orphan upload-one-file //tạo ra 1 nhánh không có commit nào trước đó
+    git rm -r --cached .   # Giữ file thật, xóa khỏi Git tracking

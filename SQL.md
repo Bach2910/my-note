@@ -45,6 +45,12 @@
         FROM users
         GROUP BY name;
 
++ COUNT(*)		    Đếm mọi dòng
++ COUNT(cột)		Đếm dòng có giá trị KHÔNG NULL
++ AVG(cột_số)
++ SUM(cột_số)
++ MAX(cột_số)
+
 - where: Dùng để chọn ra các bản ghi (rows) thỏa điều kiện, lọc dòng dữ liệu trước khi nhóm. Áp dụng trước khi GROUP BY, nghĩa là lọc dữ liệu nguyên bản chưa nhóm.
 - Group by: Dùng để gộp dữ liệu theo một (hoặc nhiều) cột, dùng để nhóm các dòng lại với nhau. Phải kết hợp với hàm tổng hợp như: COUNT(), SUM(), AVG(), MAX(), MIN(),
 - Having: dùng để lọc sau khi đã GROUP BY. Khác với WHERE, HAVING có thể dùng với các hàm tổng hợp.
@@ -69,13 +75,25 @@
         FROM customers
         LEFT JOIN orders ON customers.id = orders.customer_id;
 - RIGHT JOIN — Lấy tất cả dữ liệu từ bảng bên phải, và dữ liệu khớp từ bên trái
-
+    vd:lấy ra các đơn hàng, kể cả đơn chưa được khánh hàng đặt
       SELECT *
       FROM customers
-      LEFT JOIN orders ON customers.id = orders.customer_id;
+      RIGHT JOIN orders ON customers.id = orders.customer_id;
 
 - CROSS JOIN — Kết hợp tất cả dòng của bảng A với tất cả dòng của bảng B
   vd:Nếu có 5 khách và 3 đơn hàng → kết quả: 5 x 3 = 15 dòng!
   SELECT *
   FROM customers
   CROSS JOIN orders;
+
+6. tạo khóa ngoại và khóa chính
+
+giatri kieu PRIMARY KEY //khóa chính
+
+FOREIGN KEY (giatri) REFERENCES tenbangkia(giatricuabangkia)//khóa ngoại nhớ phải tạo giá trị trước khi bảo nó là khóa ngoại
+
+7. Bật tắt khóa ngoại
+
+       SET FOREIGN_KEY_CHECKS = 0;  -- Tắt kiểm tra khóa ngoại
+    
+       SET FOREIGN_KEY_CHECKS = 1;  -- Bật lại kiểm tra khóa ngoại

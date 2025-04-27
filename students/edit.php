@@ -2,7 +2,7 @@
 include __DIR__ . '/../config/db.php';
 
 $id = $_GET['id'];
-$student = $conn->query("SELECT * FROM students WHERE id = $id")->fetch_assoc();
+$student = $conn->query("SELECT * FROM students WHERE id = $id")->fetch(PDO::FETCH_ASSOC);
 $class_query = $conn->query("SELECT * FROM classes");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -10,11 +10,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $class_id = $_POST['class_id'];
 
-    $sql = "UPDATE students SET name='$name', email='$email', class_id=$class_id WHERE id=$id";
-    if ($conn->query($sql) === TRUE) {
+    $stmt = $conn->prepare("UPDATE students SET name='$name', email='$email', class_id=$class_id WHERE id=$id");
+    if ($stmt->execute()) {
         header('Location: index.php');
     } else {
-        echo "Lỗi: " . $conn->error;
+        echo "Lỗi: " .implode("." ,$conn->errorInfo());
     }
 }
 ?>
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     Email: <input type="email" name="email" value="<?= $student['email'] ?>" required><br><br>
     Lớp:
     <select name="class_id">
-        <?php while($row = $class_query->fetch_assoc()) { ?>
+        <?php while($row = $class_query->fetch(PDO::FETCH_ASSOC)) { ?>
             <option value="<?= $row['id'] ?>" <?= $row['id'] == $student['class_id'] ? 'selected' : '' ?>>
                 <?= $row['name'] ?>
             </option>

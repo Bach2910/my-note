@@ -9,11 +9,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $class_id = $_POST['class_id'];
 
-    $sql = "INSERT INTO students (name, email, class_id) VALUES ('$name', '$email', $class_id)";
-    if ($conn->query($sql) === TRUE) {
+    $stmt = $conn->prepare("INSERT INTO students (name, email, class_id) VALUES (:name, :email, :class_id)");
+    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':class_id', $class_id);
+    if ($stmt->execute()) {
         header('Location: index.php');
     } else {
-        echo "Lỗi: " . $conn->error;
+        echo "Lỗi: " . implode("." ,$conn->errorInfo());
     }
 }
 ?>
@@ -23,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     Email: <input type="email" name="email" required><br><br>
     Lớp:
     <select name="class_id">
-        <?php while($row = $class_query->fetch_assoc()) { ?>
+        <?php while($row = $class_query->fetch(PDO::FETCH_ASSOC)) { ?>
             <option value="<?= $row['id'] ?>"><?= $row['name'] ?></option>
         <?php } ?>
     </select><br><br>

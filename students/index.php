@@ -13,7 +13,7 @@ $result = $conn->query($sql);
     <tr>
         <th>ID</th><th>Tên</th><th>Email</th><th>Lớp</th><th>Hành động</th>
     </tr>
-    <?php while($row = $result->fetch_assoc()) { ?>
+    <?php while($row = $result->fetch(PDO::FETCH_ASSOC)) { ?>
         <tr>
             <td><?= $row['id'] ?></td>
             <td><?= $row['name'] ?></td>

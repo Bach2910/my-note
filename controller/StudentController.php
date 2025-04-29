@@ -14,6 +14,9 @@ class StudentController {
     }
 
     public function create() {
+        require_once 'model/Classes.php';
+        $classModel = new Classes();
+        $classes = $classModel->getAll(); 
         include 'view/students/create.php';
     }
 
@@ -42,15 +45,13 @@ class StudentController {
     }
 
     public function update($id) {
-        $student = $this->studentModel->find($id); // 👈 Tìm dữ liệu cũ trước
+        $student = $this->studentModel->find($id);
 
         $uploadedImages = $this->uploadImages($_FILES['images']);
 
         if (!empty($uploadedImages)) {
-            // Có upload ảnh mới
             $images = $uploadedImages;
         } else {
-            // Không upload ảnh mới => dùng ảnh cũ
             $images = json_decode($student['images'], true);
         }
 
@@ -75,7 +76,7 @@ class StudentController {
         $allowedSize = 2 * 1024 * 1024; // 2MB
 
         if (!isset($files['name']) || empty($files['name'][0])) {
-            return []; // Không có file nào upload
+            return [];
         }
 
         foreach ($files['name'] as $key => $name) {
@@ -88,13 +89,13 @@ class StudentController {
 
             $targetDir = "uploads/";
             if (!is_dir($targetDir)) {
-                mkdir($targetDir, 0777, true);
+                @mkdir($targetDir, 0777, true);
             }
             $filename = time() . '_' . basename($name);
             $targetFile = $targetDir . $filename;
 
             if (move_uploaded_file($tmpName, $targetFile)) {
-                $uploadedImages[] = $targetFile; // lưu luôn đường dẫn uploads/xxx
+                $uploadedImages[] = $targetFile;
             }
         }
         return $uploadedImages;

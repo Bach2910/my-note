@@ -40,6 +40,9 @@ class StudentController {
     }
 
     public function edit($id) {
+        require_once 'model/Classes.php';
+        $classModel = new Classes();
+        $classes = $classModel->getAll();
         $student = $this->studentModel->find($id);
         include 'view/students/edit.php';
     }

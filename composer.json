@@ -1,0 +1,19 @@
+{
+    "name": "bachpn/qlsv_mvc2",
+    "version": "1.0.0",
+    "autoload": {
+        "psr-4": {
+            "Bachpn\\QlsvMvc2\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bach2910",
+            "email": "ngoc22003@gmail.com"
+        }
+    ],
+    "require": {
+        "fakerphp/faker": "^1.24",
+      "ext-pdo": "*"
+    }
+}

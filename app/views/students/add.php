@@ -1,4 +1,5 @@
 <h2 class="add-card mt-5">Create new student</h2>
+
 <section class="add-card page">
     <form class="form" method="POST" action="index.php?controller=student&action=store" enctype="multipart/form-data">
         <label for="name" class="label">
@@ -69,3 +70,14 @@
         <input class="checkout-btn" type="submit" value="Add"/>
     </form>
 </section>
+<?php if (!empty($_SESSION['upload_errors'])): ?>
+    <div class="error-messages" style="color: red;">
+        <strong>Đã có lỗi khi upload ảnh:</strong>
+        <ul>
+            <?php foreach ($_SESSION['upload_errors'] as $error): ?>
+                <li><?= htmlspecialchars($error) ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <?php unset($_SESSION['upload_errors']); ?>
+<?php endif; ?>

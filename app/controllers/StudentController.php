@@ -30,50 +30,81 @@ class StudentController
 
         $uploadPath = __DIR__ . '/../../public/assets/uploads/';
         $uploadedImages = [];
+        $errors = [];
 
-        // Kiểm tra và tạo thư mục nếu không tồn tại
         if (!file_exists($uploadPath)) {
             @mkdir($uploadPath, 0777, true);
         }
 
-        // Duyệt qua các file ảnh đã tải lên
+        $maxFileSize = 5 * 1024 * 1024; // 5MB
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+
         foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
-            $filename = time() . '_' . basename($_FILES['images']['name'][$key]);
-            $target = $uploadPath . $filename;
+            $originalName = $_FILES['images']['name'][$key];
+            $fileSize = $_FILES['images']['size'][$key];
+            $fileError = $_FILES['images']['error'][$key];
+            $fileExtension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
 
-            if ($_FILES['images']['error'][$key] !== UPLOAD_ERR_OK) {
+            // Kiểm tra lỗi upload
+            if ($fileError !== UPLOAD_ERR_OK) {
+                $errors[] = "Lỗi khi upload file: {$originalName}";
                 continue;
             }
-            $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-            $fileExtension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
 
-            // Kiểm tra xem phần mở rộng có hợp lệ không
+            // Kiểm tra định dạng file hợp lệ
             if (!in_array($fileExtension, $allowedExtensions)) {
+                $errors[] = "Định dạng không hợp lệ cho file: {$originalName}";
                 continue;
             }
+
+            // Kiểm tra dung lượng file không vượt quá 5MB
+            if ($fileSize > $maxFileSize) {
+                $errors[] = "File quá lớn (quá 5MB): {$originalName}";
+                continue;
+            }
+
+            // Đặt tên mới cho file để tránh trùng
+            $filename = time() . '_' . basename($originalName);
+            $target = $uploadPath . $filename;
 
             // Di chuyển file vào thư mục uploads
             if (move_uploaded_file($tmp_name, $target)) {
                 $uploadedImages[] = 'assets/uploads/' . $filename;
+            } else {
+                $errors[] = "Không thể lưu file: {$originalName}";
             }
         }
 
-        // Lấy dữ liệu từ form
-        $data = [
-            'name' => $_POST['name'],
-            'email' => $_POST['email'],
-            'phone' => $_POST['phone'],
-            'address' => $_POST['address'],
-            'class_id' => $_POST['class_id'],
-            'images' => implode(',', $uploadedImages)
-        ];
-        // Lưu dữ liệu vào cơ sở dữ liệu
-        $student = new Student();
-        $student->store($data);
+        if (!empty($uploadedImages)) {
+            echo "Đã upload thành công các file:<br>";
+            foreach ($uploadedImages as $file) {
+                echo htmlspecialchars($file) . "<br>";
+            }
+        }
 
-        // Điều hướng về trang danh sách sinh viên
-        header("Location: index.php?controller=student&action=index");
-        exit();
+        if (!empty($errors)) {
+            $_SESSION['upload_errors'] = $errors;
+            $_SESSION['old_input'] = $_POST;
+            header("Location: index.php?controller=student&action=create");
+            exit();
+        } else {
+
+            $data = [
+                'name' => $_POST['name'],
+                'email' => $_POST['email'],
+                'phone' => $_POST['phone'],
+                'address' => $_POST['address'],
+                'class_id' => $_POST['class_id'],
+                'images' => implode(',', $uploadedImages)
+            ];
+            // Lưu dữ liệu vào cơ sở dữ liệu
+            $student = new Student();
+            $student->store($data);
+
+            // Điều hướng về trang danh sách sinh viên
+            header("Location: index.php?controller=student&action=index");
+            exit();
+        }
     }
 
 

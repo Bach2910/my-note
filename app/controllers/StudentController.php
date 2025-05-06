@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__ . '/../models/Student.php';
 require_once __DIR__ . '/../models/Classes.php';
 
@@ -45,7 +46,6 @@ class StudentController
             $fileError = $_FILES['images']['error'][$key];
             $fileExtension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
 
-            // Kiểm tra lỗi upload
             if ($fileError !== UPLOAD_ERR_OK) {
                 $errors[] = "Lỗi khi upload file: {$originalName}";
                 continue;
@@ -97,11 +97,9 @@ class StudentController
                 'class_id' => $_POST['class_id'],
                 'images' => implode(',', $uploadedImages)
             ];
-            // Lưu dữ liệu vào cơ sở dữ liệu
             $student = new Student();
             $student->store($data);
 
-            // Điều hướng về trang danh sách sinh viên
             header("Location: index.php?controller=student&action=index");
             exit();
         }

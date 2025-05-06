@@ -9,6 +9,8 @@
                     type="text"
                     name="name"
                     placeholder="Enter your full name" required
+                    value="<?= htmlspecialchars($_SESSION['old_input']['name'] ?? '') ?>"
+
             />
         </label>
         <label for="name" class="label">
@@ -18,6 +20,8 @@
                     type="text"
                     name="email"
                     placeholder="Enter your email" required
+                    value="<?= htmlspecialchars($_SESSION['old_input']['name'] ?? '') ?>"
+
             />
         </label>
         <label for="name" class="label">
@@ -27,6 +31,8 @@
                     type="text"
                     name="address"
                     placeholder="Enter your address" required
+                    value="<?= htmlspecialchars($_SESSION['old_input']['name'] ?? '') ?>"
+
             />
         </label>
         <div class="split">
@@ -37,6 +43,8 @@
                         class="input-field"
                         type="text"
                         name="phone" required
+                        value="<?= htmlspecialchars($_SESSION['old_input']['name'] ?? '') ?>"
+
                 />
             </label>
             <label for="cvv" class="label">
@@ -44,7 +52,9 @@
                 <select name="class_id" class="input-field" required>
                     <option value="">__Choose Class__</option>
                     <?php foreach ($classes as $class): ?>
-                        <option value="<?= $class['id'] ?>"><?= $class['class_name'] ?></option>
+                        <option value="<?= $class['id'] ?>" <?= (isset($_SESSION['old_input']['class_id']) && $_SESSION['old_input']['class_id'] == $class['id']) ? 'selected' : '' ?>>
+                            <?= $class['class_name'] ?>
+                        </option>
                     <?php endforeach; ?>
                 </select><br>
                 <span style="color:red"><?= $_SESSION['errors']['class_id'] ?? '' ?></span>
@@ -66,18 +76,12 @@
                 <span>Click to upload image</span>
             </div>
             <input id="file" type="file" name="images[]" multiple required><br>
+
         </label>
+        <?php if (!empty($_SESSION['upload_errors'])): ?>
+            <span class="error-message" style="color: red;"><?php foreach ($_SESSION['upload_errors'] as $error): ?><?= htmlspecialchars($error) ?><?php endforeach; ?></span>
+            <?php unset($_SESSION['upload_errors']); ?>
+        <?php endif; ?>
         <input class="checkout-btn" type="submit" value="Add"/>
     </form>
 </section>
-<?php if (!empty($_SESSION['upload_errors'])): ?>
-    <div class="error-messages" style="color: red;">
-        <strong>Đã có lỗi khi upload ảnh:</strong>
-        <ul>
-            <?php foreach ($_SESSION['upload_errors'] as $error): ?>
-                <li><?= htmlspecialchars($error) ?></li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-    <?php unset($_SESSION['upload_errors']); ?>
-<?php endif; ?>

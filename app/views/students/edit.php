@@ -84,6 +84,10 @@
             </div>
             <input id="file" type="file" name="images[]" multiple><br>
         </label>
+        <?php if (!empty($_SESSION['upload_errors'])): ?>
+            <span class="error-message" style="color: red;"><?php foreach ($_SESSION['upload_errors'] as $error): ?><?= htmlspecialchars($error) ?><?php endforeach; ?></span>
+            <?php unset($_SESSION['upload_errors']); ?>
+        <?php endif; ?>
         <input class="checkout-btn" type="submit" value="Add"/>
     </form>
 </section>

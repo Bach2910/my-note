@@ -97,10 +97,11 @@ class StudentController
                 'class_id' => $_POST['class_id'],
                 'images' => implode(',', $uploadedImages)
             ];
-
+            // Lưu dữ liệu vào cơ sở dữ liệu
             $student = new Student();
             $student->store($data);
 
+            // Điều hướng về trang danh sách sinh viên
             header("Location: index.php?controller=student&action=index");
             exit();
         }

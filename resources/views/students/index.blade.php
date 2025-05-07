@@ -30,7 +30,8 @@
                         @endforeach
                     @endif
                 </td>
-                <td>{{ $student->classes->name }}</td>
+                <td>{{ $student->student_id }}</td>
+                <td>{{ $student->classes ? $student->classes->name : 'Không có lớp' }}</td>
                 <td>
                     <a href="{{ route('students.edit', $student->id) }}"><button type="button">Edit</button></a>
                     <form action="{{ route('students.destroy', $student->id) }}" method="POST" style="display:inline;">

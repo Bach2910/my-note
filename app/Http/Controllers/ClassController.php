@@ -66,7 +66,7 @@ class ClassController extends Controller
         //
         $classes = Classes::findOrFail($id);
         $validate = $request->validate([
-            'name' => 'required:unique:classes,name',
+            'name' => 'required|unique:classes,name,' . $classes->id,
             'description' => 'required',
         ]);
         $classes->update($validate);

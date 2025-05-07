@@ -21,7 +21,9 @@
                 name="name"
                 value="{{$classes->name}}"
                 required/>
-
+            @if($errors->has('name'))
+                <span style="color: red;">{{ $errors->first('name') }}</span>
+            @endif
         </label>
         <label for="name" class="label">
             <span class="title">Description</span>

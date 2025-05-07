@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('address');
             $table->string('gender');
             $table->string('image');
-            $table->unsignedBigInteger('class_id')->nullable()->change();
-            $table->foreign('class_id')->references('id')->on('classes');
+            $table->unsignedBigInteger('class_id')->nullable();
+            $table->foreign('class_id')->references('id')->on('classes')->onDelete('set null');
             $table->timestamps();
         });
     }

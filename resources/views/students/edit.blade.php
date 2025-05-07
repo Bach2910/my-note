@@ -96,7 +96,7 @@
             <div class="text">
                 <span>Click to upload image</span>
             </div>
-            <input id="file" type="file" name="image[]" multiple required><br>
+            <input id="file" type="file" name="image[]" multiple><br>
             <div class="image-preview">
                 @if ($student->image)
                     @foreach (explode(',', $student->image) as $image)

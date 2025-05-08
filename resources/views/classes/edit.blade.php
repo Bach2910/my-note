@@ -20,7 +20,7 @@
                 type="text"
                 name="name"
                 value="{{$classes->name}}"
-                required/>
+                />
             @if($errors->has('name'))
                 <span style="color: red;">{{ $errors->first('name') }}</span>
             @endif
@@ -32,7 +32,7 @@
                 type="text"
                 name="description"
                 value="{{$classes->description}}"
-                required/>
+                />
         </label>
         <input class="checkout-btn" type="submit" value="Add"/>
     </form>

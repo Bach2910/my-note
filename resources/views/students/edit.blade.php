@@ -11,6 +11,21 @@
 <h2 class="add-card mt-5">Edit Student</h2>
 
 <section class="add-card page">
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @php
+        try {
+            // Mã xử lý gửi biểu mẫu (giả sử đây là nơi bạn xử lý lưu thông tin sinh viên)
+            // ...
+        } catch (Exception $e) {
+            Log::error($e);
+            return redirect()->back()->with('error', 'Đã xảy ra lỗi trong quá trình xử lý.');
+        }
+    @endphp
     <form class="form" method="POST" action="{{ route('students.update', $student->id) }}"
           enctype="multipart/form-data">
         @csrf
@@ -22,7 +37,7 @@
                 class="input-field"
                 type="text"
                 name="name"
-                placeholder="Enter your full name" required
+                placeholder="Enter your full name"
                 value="{{ old('name', $student->name) }}"
             />
         </label>
@@ -33,7 +48,7 @@
                 class="input-field"
                 type="email"
                 name="email"
-                placeholder="Enter your email" required
+                placeholder="Enter your email"
                 value="{{ old('email', $student->email) }}"
             />
         </label>
@@ -44,7 +59,7 @@
                 class="input-field"
                 type="text"
                 name="address"
-                placeholder="Enter your address" required
+                placeholder="Enter your address"
                 value="{{ old('address', $student->address) }}"
             />
         </label>
@@ -55,13 +70,16 @@
                     class="input-field"
                     type="text"
                     name="student_id"
-                    placeholder="Enter your ID" required
-                    value="{{ old('student_id', $student->student_id) }}"
-                />
+                    placeholder="Enter your ID"
+                    value="{{ old('student_id', $student->student_id) }}">
+                @if ($errors->has('student_id'))
+                    <span style="color: red;">{{ $errors->first('student_id') }}</span>
+                @endif
             </label>
+
             <label for="class_id" class="label">
                 <span class="title">Class</span>
-                <select name="class_id" class="input-field" required>
+                <select name="class_id" class="input-field">
                     <option value="" style="justify-items: center;align-items: center">___Class___</option>
                     @foreach($classes as $class)
                         <option
@@ -73,7 +91,7 @@
             </label>
             <label for="gender" class="label">
                 <span class="title">Gender</span>
-                <select name="gender" class="input-field" required>
+                <select name="gender" class="input-field">
                     <option value="">___Gender___</option>
                     <option value="male" {{ old('gender', $student->gender) == 'male' ? 'selected' : '' }}>Male</option>
                     <option value="female" {{ old('gender', $student->gender) == 'female' ? 'selected' : '' }}>Female
@@ -103,10 +121,11 @@
                         <img src="{{ asset($image) }}" alt="Current Image" style="max-width: 150px; max-height: 150px;">
                     @endforeach
                 @endif
-                @if ($errors->has('image'))
-                    <span style="color: red;">{{ $errors->first('image') }}</span>
-                @endif
+
             </div>
+            @if ($errors->has('image.*'))
+                <span style="color: red;">{{ $errors->first('image.*') }}</span>
+            @endif
         </label>
         <input class="checkout-btn" type="submit" value="Update"/>
     </form>

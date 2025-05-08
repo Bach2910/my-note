@@ -23,9 +23,6 @@
                 value="{{old('name')}}"
 
             />
-            @if ($errors->has('name'))
-                <span style="color: red;">{{ $errors->first('name') }}</span>
-            @endif
         </label>
         <label for="email" class="label">
             <span class="title">Email</span>
@@ -37,9 +34,6 @@
                 value="{{old('email')}}"
 
             />
-            @if ($errors->has('email'))
-                <span style="color: red;">{{ $errors->first('email') }}</span>
-            @endif
         </label>
         <label for="address" class="label">
             <span class="title">Address</span>
@@ -51,9 +45,6 @@
                 value="{{old('address')}}"
 
             />
-            @if ($errors->has('address'))
-                <span style="color: red;">{{ $errors->first('address') }}</span>
-            @endif
         </label>
         <div class="split">
             <label for="ExDate" class="label">
@@ -91,9 +82,6 @@
                     <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
                     <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
                 </select>
-                @if ($errors->has('gender'))
-                    <span style="color: red;">{{ $errors->first('gender') }}</span>
-                @endif
             </label>
         </div>
         <label class="custum-file-upload" for="file">

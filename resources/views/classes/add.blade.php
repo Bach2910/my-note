@@ -19,7 +19,7 @@
                 type="text"
                 name="name"
                 value="{{old('name')}}"
-                required/>
+                />
         </label>
         @if ($errors->has('name'))
             <span style="color: red;">{{ $errors->first('name') }}</span>
@@ -31,7 +31,10 @@
                 type="text"
                 name="description"
                 value="{{old('description')}}"
-                required/>
+                />
+            @if ($errors->has('description'))
+                <span style="color: red;">{{ $errors->first('description') }}</span>
+            @endif
         </label>
         <input class="checkout-btn" type="submit" value="Add"/>
     </form>

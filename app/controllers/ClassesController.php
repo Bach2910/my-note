@@ -39,7 +39,6 @@ class ClassesController
                 header("Location: index.php?controller=classes&action=create");
                 exit();
             }
-
             $this->classModel->addClass($data);
             header("Location: index.php?controller=classes&action=index");
             exit();

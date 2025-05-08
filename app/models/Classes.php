@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/../../config/config.php';
-
 class Classes {
     private $pdo;
 
@@ -37,5 +36,11 @@ class Classes {
         $stmt = $this->pdo->prepare("DELETE FROM classes WHERE id = ?");
         return $stmt->execute([$id]);
     }
-
+    public function classExists($className) {
+        $query = "SELECT COUNT(*) FROM classes WHERE class_name = :class_name";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':class_name', $className);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
 }

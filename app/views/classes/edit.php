@@ -11,6 +11,12 @@
                     value="<?= $classes['class_name'] ?>"
                     required/>
         </label>
+        <?php if (isset($_SESSION['class_error'])): ?>
+            <div class="alert alert-danger">
+                <?php echo htmlspecialchars($_SESSION['class_error']); ?>
+            </div>
+            <?php unset($_SESSION['class_error']); ?>
+        <?php endif; ?>
         <label for="name" class="label">
             <span class="title">Description</span>
             <input

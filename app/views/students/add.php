@@ -20,7 +20,7 @@
                     type="text"
                     name="email"
                     placeholder="Enter your email" required
-                    value="<?= htmlspecialchars($_SESSION['old_input']['name'] ?? '') ?>"
+                    value="<?= htmlspecialchars($_SESSION['old_input']['email'] ?? '') ?>"
 
             />
         </label>
@@ -31,7 +31,7 @@
                     type="text"
                     name="address"
                     placeholder="Enter your address" required
-                    value="<?= htmlspecialchars($_SESSION['old_input']['name'] ?? '') ?>"
+                    value="<?= htmlspecialchars($_SESSION['old_input']['address'] ?? '') ?>"
 
             />
         </label>
@@ -43,8 +43,7 @@
                         class="input-field"
                         type="text"
                         name="phone" required
-                        value="<?= htmlspecialchars($_SESSION['old_input']['name'] ?? '') ?>"
-
+                        value="<?= htmlspecialchars($_SESSION['old_input']['phone'] ?? '') ?>"
                 />
             </label>
             <label for="cvv" class="label">
@@ -76,10 +75,9 @@
                 <span>Click to upload image</span>
             </div>
             <input id="file" type="file" name="images[]" multiple required><br>
-
         </label>
         <?php if (!empty($_SESSION['upload_errors'])): ?>
-            <span class="error-message" style="color: red;"><?php foreach ($_SESSION['upload_errors'] as $error): ?><?= htmlspecialchars($error) ?><?php endforeach; ?></span>
+        <div class="alert alert-danger"><?php foreach ($_SESSION['upload_errors'] as $error): ?><?= htmlspecialchars($error) ?><?php endforeach; ?></div>
             <?php unset($_SESSION['upload_errors']); ?>
         <?php endif; ?>
         <input class="checkout-btn" type="submit" value="Add"/>

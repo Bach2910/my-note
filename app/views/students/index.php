@@ -23,7 +23,7 @@
                 <td><?= $stu['email'] ?></td>
                 <td><?= $stu['phone'] ?></td>
                 <td><?= $stu['address'] ?></td>
-                <td><?= $stu['class_name'] ?></td>
+                <td><?= $stu['class_name'] ?? 'Chưa phân lớp' ?></td>
                 <td>
                     <?php
                     $images = explode(',', $stu['images']);
@@ -38,7 +38,6 @@
                     <button type="button" class="btn btn-danger"><a class="nav-link text-white"
                                 href="index.php?controller=student&action=delete&id=<?= $stu['id'] ?>"
                                 onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a></button>
-
                 </td>
             </tr>
         <?php endforeach; ?>

@@ -4,9 +4,9 @@
 <table class="table table-primary">
     <thead>
     <tr>
-        <th scope="col">#</th>
         <th scope="col">Class</th>
         <th scope="col">Description</th>
+        <th scope="col">Function</th>
     </tr>
     </thead>
     <?php foreach ($classes as $stu): ?>

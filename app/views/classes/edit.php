@@ -9,7 +9,7 @@
                     type="text"
                     name="class_name"
                     value="<?= $classes['class_name'] ?>"
-                    required/>
+                    />
         </label>
         <?php if (isset($_SESSION['class_error'])): ?>
             <div class="alert alert-danger">
@@ -24,7 +24,7 @@
                     type="text"
                     name="description"
                     value="<?= $classes['description'] ?>"
-                    required/>
+                    />
         </label>
         <input class="checkout-btn" type="submit" value="Save"/>
     </form>

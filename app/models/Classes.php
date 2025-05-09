@@ -43,4 +43,11 @@ class Classes {
         $stmt->execute();
         return $stmt->fetchColumn() > 0;
     }
+    public function listStudent($class_id){
+        $query = "SELECT classes.class_name AS class_name , class_id, students.name FROM classes INNER JOIN students ON classes.id = students.class_id where class_id = :id ";
+        $stmt = $this->pdo->prepare($query);
+        $stmt ->bindParam(':id', $class_id);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }

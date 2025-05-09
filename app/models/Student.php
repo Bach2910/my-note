@@ -14,12 +14,13 @@ class Student {
     }
 
     public function store($data) {
-        $stmt = $this->pdo->prepare("INSERT INTO students (name, email, phone, address, class_id, images) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $this->pdo->prepare("INSERT INTO students (name, email, phone, address,student_code, class_id, images) VALUES (?, ?, ?, ?, ?, ?,?)");
         return $stmt->execute([
             $data['name'],
             $data['email'],
             $data['phone'],
             $data['address'],
+            $data['student_code'],
             $data['class_id'],
             $data['images']
         ]);
@@ -31,13 +32,20 @@ class Student {
     }
 
     public function update($id, $data) {
-        $stmt = $this->pdo->prepare("UPDATE students SET name = ?, email = ?, phone = ?, address = ?, class_id = ?, images = ? WHERE id = ?");
-        return $stmt->execute([$data['name'], $data['email'], $data['phone'], $data['address'], $data['class_id'], $data['images'], $id]);
+        $stmt = $this->pdo->prepare("UPDATE students SET name = ?, email = ?, phone = ?, address = ?,student_code = ?, class_id = ?, images = ? WHERE id = ?");
+        return $stmt->execute([$data['name'], $data['email'], $data['phone'], $data['address'],$data['student_code'], $data['class_id'], $data['images'], $id]);
     }
 
     public function delete($id) {
         $stmt = $this->pdo->prepare("DELETE FROM students WHERE id = ?");
         return $stmt->execute([$id]);
+    }
+    public function studentExists($studentCode) {
+        $query = "SELECT COUNT(*) FROM students WHERE student_code = :student_code";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':student_code', $studentCode);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
     }
 
 }

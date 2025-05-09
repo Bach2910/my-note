@@ -28,7 +28,6 @@ class StudentController
 
     public function store()
     {
-
         $uploadPath = __DIR__ . '/../../public/assets/uploads/';
         $uploadedImages = [];
         $errors = [];
@@ -47,17 +46,20 @@ class StudentController
             $fileExtension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
 
             if ($fileError !== UPLOAD_ERR_OK) {
-                $errors[] = "Lỗi khi upload file: {$originalName}";
-                continue;
+                if ($fileError == UPLOAD_ERR_NO_FILE) {
+                    $errors[] = "Vui lòng chọn hình ảnh";
+                    continue;
+                } else {
+                    $errors[] = "Lỗi khi upload file: {$originalName}";
+                    continue;
+                }
             }
-
             // Kiểm tra định dạng file hợp lệ
             if (!in_array($fileExtension, $allowedExtensions)) {
                 $errors[] = "Định dạng không hợp lệ cho file: {$originalName}";
                 continue;
             }
 
-            // Kiểm tra dung lượng file không vượt quá 5MB
             if ($fileSize > $maxFileSize) {
                 $errors[] = "File quá lớn (quá 5MB): {$originalName}";
                 continue;
@@ -81,37 +83,53 @@ class StudentController
                 echo htmlspecialchars($file) . "<br>";
             }
         }
-
+        $fields = [
+            'name' => 'Enter your name',
+            'email' => 'Enter your email',
+            'phone' => 'Enter your phone',
+            'address' => 'Enter your address',
+            'student_code' => 'Enter your student_code',
+            'class_id' => 'Enter your class_id',
+        ];
+        foreach ($fields as $field => $message) {
+            if (empty($_POST[$field])) {
+                $_SESSION['errors'][$field] = $message;
+            }
+        }
         if (!empty($errors)) {
             $_SESSION['upload_errors'] = $errors;
             $_SESSION['old_input'] = $_POST;
             header("Location: index.php?controller=student&action=create");
             exit();
         } else {
-
             $data = [
                 'name' => $_POST['name'],
                 'email' => $_POST['email'],
                 'phone' => $_POST['phone'],
                 'address' => $_POST['address'],
+                'student_code' => $_POST['student_code'],
                 'class_id' => $_POST['class_id'],
                 'images' => implode(',', $uploadedImages)
             ];
-            // Lưu dữ liệu vào cơ sở dữ liệu
+            $student_code = $data['student_code'];
             $student = new Student();
-            $student->store($data);
-
-            // Điều hướng về trang danh sách sinh viên
-            header("Location: index.php?controller=student&action=index");
-            exit();
+            if($student->studentExists($student_code)){
+                $_SESSION['old_input'] = $_POST;
+                $_SESSION['exits'] = 'Student code already exists';
+                header("Location: index.php?controller=student&action=create");
+                exit();
+            }
+            if ($student->store($data)) {
+                unset($_SESSION['old_input']);
+                header("Location: index.php?controller=student&action=index");
+                exit();
+            };
         }
     }
-
-
     public function edit()
     {
         $id = $_GET['id'];
-        $student = (new Student())->findById($id);
+        $student = $this->student->findById($id);
         $classes = (new Classes())->getAllClasses();
         include __DIR__ . '/../views/students/edit.php';
     }
@@ -134,10 +152,11 @@ class StudentController
             $fileError = $_FILES['images']['error'][$key];
             $fileExtension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
 
-            // Kiểm tra lỗi tải lên
             if ($fileError !== UPLOAD_ERR_OK) {
+
                 $errors[] = "Lỗi khi upload file: {$originalName}";
                 continue;
+
             }
 
             // Kiểm tra định dạng file hợp lệ
@@ -163,7 +182,6 @@ class StudentController
                 $errors[] = "Không thể lưu file: {$originalName}";
             }
         }
-
         // Xử lý thông báo lỗi
         if (!empty($errors)) {
             $_SESSION['upload_errors'] = $errors;
@@ -195,6 +213,4 @@ class StudentController
         header("Location: index.php?controller=student&action=index");
         exit();
     }
-
 }
-

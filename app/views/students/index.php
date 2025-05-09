@@ -10,6 +10,7 @@
             <th scope="col">Email</th>
             <th scope="col">SDT</th>
             <th scope="col">Address</th>
+            <th scope="col">MSV</th>
             <th scope="col">Lớp</th>
             <th scope="col" style="text-align: center">Ảnh</th>
             <th scope="col">Function</th>
@@ -23,7 +24,8 @@
                 <td><?= $stu['email'] ?></td>
                 <td><?= $stu['phone'] ?></td>
                 <td><?= $stu['address'] ?></td>
-                <td><?= $stu['class_name'] ?? 'Chưa phân lớp' ?></td>
+                <td><?= $stu['student_code']?></td>
+                <td><?= $stu['class_name'] ?? 'Không có lớp' ?></td>
                 <td>
                     <?php
                     $images = explode(',', $stu['images']);
@@ -34,10 +36,12 @@
                 </td>
                 <td>
                     <button type="button" class="btn btn-success"><a class="nav-link text-white"
-                                href="index.php?controller=student&action=edit&id=<?= $stu['id'] ?>">Sửa</a></button>
+                                                                     href="index.php?controller=student&action=edit&id=<?= $stu['id'] ?>">Sửa</a>
+                    </button>
                     <button type="button" class="btn btn-danger"><a class="nav-link text-white"
-                                href="index.php?controller=student&action=delete&id=<?= $stu['id'] ?>"
-                                onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a></button>
+                                                                    href="index.php?controller=student&action=delete&id=<?= $stu['id'] ?>"
+                                                                    onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+                    </button>
                 </td>
             </tr>
         <?php endforeach; ?>

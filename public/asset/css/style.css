@@ -41,7 +41,7 @@
 }
 .form {
     background: whitesmoke;
-    width: 500px;
+    width: auto;
     display: flex;
     flex-direction: column;
     gap: 15px;

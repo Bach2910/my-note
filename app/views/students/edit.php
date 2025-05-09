@@ -9,7 +9,6 @@
                     type="text"
                     name="name"
                     value="<?= $student['name'] ?>"
-
             required/>
         </label>
         <label for="name" class="label">

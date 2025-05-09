@@ -15,10 +15,12 @@
             <td><?= $stu['description'] ?></td>
             <td>
                 <button type="button" class="btn btn-success"><a class="nav-link text-white"<a
-                            href="index.php?controller=classes&action=edit&id=<?= $stu['id'] ?>">Sửa</a></button>
+                            href="index.php?controller=classes&action=edit&id=<?= $stu['id'] ?>">Edit</a></button>
+                <button type="button" class="btn btn-primary"><a class="nav-link text-white"<a
+                            href="index.php?controller=classes&action=show&id=<?= $stu['id'] ?>">Detail</a></button>
                 <button type="button" class="btn btn-danger"><a class="nav-link text-white" <a
                             href="index.php?controller=classes&action=delete&id=<?= $stu['id'] ?>"
-                            onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a></button>
+                            onclick="return confirm('Bạn có chắc muốn xóa <?= $stu['class_name'] ?> ?')">Delete</a></button>
             </td>
         </tr>
     <?php endforeach; ?>

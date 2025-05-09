@@ -8,10 +8,14 @@
                     class="input-field"
                     type="text"
                     name="name"
-                    placeholder="Enter your full name" required
+                    placeholder="Enter your full name"
                     value="<?= htmlspecialchars($_SESSION['old_input']['name'] ?? '') ?>"
 
             />
+            <?php if (!empty($_SESSION['errors']['name'])): ?>
+                <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['name'])); ?></span>
+                <?php unset($_SESSION['errors']['name']); ?>
+            <?php endif; ?>
         </label>
         <label for="name" class="label">
             <span class="title">Email</span>
@@ -19,10 +23,14 @@
                     class="input-field"
                     type="text"
                     name="email"
-                    placeholder="Enter your email" required
+                    placeholder="Enter your email"
                     value="<?= htmlspecialchars($_SESSION['old_input']['email'] ?? '') ?>"
 
             />
+            <?php if (!empty($_SESSION['errors']['email'])): ?>
+            <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['email'])); ?></span>
+                <?php unset($_SESSION['errors']['email']); ?>
+            <?php endif; ?>
         </label>
         <label for="name" class="label">
             <span class="title">Address</span>
@@ -30,10 +38,14 @@
                     class="input-field"
                     type="text"
                     name="address"
-                    placeholder="Enter your address" required
+                    placeholder="Enter your address"
                     value="<?= htmlspecialchars($_SESSION['old_input']['address'] ?? '') ?>"
 
             />
+            <?php if (!empty($_SESSION['errors']['address'])): ?>
+            <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['address'])); ?></span>
+                <?php unset($_SESSION['errors']['address']); ?>
+            <?php endif; ?>
         </label>
         <div class="split">
             <label for="ExDate" class="label">
@@ -42,21 +54,46 @@
                         id="ExDate"
                         class="input-field"
                         type="text"
-                        name="phone" required
+                        name="phone"
                         value="<?= htmlspecialchars($_SESSION['old_input']['phone'] ?? '') ?>"
                 />
+                <?php if (!empty($_SESSION['errors']['phone'])): ?>
+                <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['phone'])); ?></span>
+                    <?php unset($_SESSION['errors']['phone']); ?>
+                <?php endif; ?>
+            </label>
+            <label for="student_code" class="label">
+                <span class="title">Student ID</span>
+                <input
+                        id="student_code"
+                        class="input-field"
+                        type="text"
+                        name="student_code"
+                        value="<?= htmlspecialchars($_SESSION['old_input']['student_code'] ?? '') ?>"
+                />
+                <?php if (!empty($_SESSION['errors']['student_code'])): ?>
+                     <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['student_code'])); ?></span>
+                    <?php unset($_SESSION['errors']['student_code']); ?>
+                <?php endif; ?>
+                <?php if (!empty($_SESSION['exits'])): ?>
+                    <span style="color:red"><?= htmlspecialchars(($_SESSION['exits'])); ?></span>
+                    <?php unset($_SESSION['exits']); ?>
+                <?php endif; ?>
             </label>
             <label for="cvv" class="label">
                 <span class="title">Class</span>
-                <select name="class_id" class="input-field" required>
+                <select name="class_id" class="input-field">
                     <option value="">__Choose Class__</option>
                     <?php foreach ($classes as $class): ?>
                         <option value="<?= $class['id'] ?>" <?= (isset($_SESSION['old_input']['class_id']) && $_SESSION['old_input']['class_id'] == $class['id']) ? 'selected' : '' ?>>
                             <?= $class['class_name'] ?>
                         </option>
                     <?php endforeach; ?>
-                </select><br>
-                <span style="color:red"><?= $_SESSION['errors']['class_id'] ?? '' ?></span>
+                </select>
+                <?php if (!empty($_SESSION['errors']['class_id'])): ?>
+                     <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['class_id'])); ?></span>
+                    <?php unset($_SESSION['errors']['class_id']); ?>
+                <?php endif; ?>
             </label>
         </div>
         <label class="custum-file-upload" for="file">
@@ -74,10 +111,10 @@
             <div class="text">
                 <span>Click to upload image</span>
             </div>
-            <input id="file" type="file" name="images[]" multiple required><br>
+            <input id="file" type="file" name="images[]" multiple ><br>
         </label>
         <?php if (!empty($_SESSION['upload_errors'])): ?>
-        <div class="alert alert-danger"><?php foreach ($_SESSION['upload_errors'] as $error): ?><?= htmlspecialchars($error) ?><?php endforeach; ?></div>
+        <span style="color:red"><?php foreach ($_SESSION['upload_errors'] as $error): ?><?= htmlspecialchars($error) ?><?php endforeach; ?></span>
             <?php unset($_SESSION['upload_errors']); ?>
         <?php endif; ?>
         <input class="checkout-btn" type="submit" value="Add"/>

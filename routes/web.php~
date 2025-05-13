@@ -30,8 +30,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/list-account',[CustomerAuthController::class,'listAccount'])->name('list.index');
 Route::post('/list-account/{user}/change-role', [CustomerAuthController::class, 'changeRole'])->name('users.changeRole');
-Route::get('/list-permission-data',[CustomerAuthController::class,'listPermissionData'])->name('list.permissionData');
-
 Route::get('/list-permission',[CustomerAuthController::class,'listPermission'])->name('list.permission');
 Route::post('/list-permission/update', [CustomerAuthController::class, 'updatePermission'])->name('list.update');
 Route::get('/permissions/create', [CustomerAuthController::class, 'create'])->name('permissions.create');

@@ -141,7 +141,7 @@ class CustomerAuthController extends Controller
 
         Role::create(['name' => $request->name]);
 
-        return redirect()->route('list.index')->with('success', 'Tạo vai trò thành công!');
+        return redirect()->route('list.permissionData')->with('success', 'Tạo vai trò thành công!');
     }
     public function destroyRole($id)
     {
@@ -153,6 +153,10 @@ class CustomerAuthController extends Controller
             $user->assignRole('guest');
         }
         $role->delete();
-        return redirect()->route('list.index')->with('success', 'Đã xóa vai trò và gán lại role "guest" cho user.');
+        return redirect()->back()->with('success', 'Đã xóa vai trò và gán lại role "guest" cho user.');
+    }
+    public function listPermissionData(){
+        $roles = Role::all();
+        return view('admin.permission.listPermission',compact('roles'));
     }
 }

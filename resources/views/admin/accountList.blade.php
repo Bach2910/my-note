@@ -38,14 +38,5 @@
     <a href="{{ route('list.permission') }}">Add</a>
     <hr>
 @endforeach
-<a href="{{route('roles.create')}}">New Role</a>
-@foreach ($roles as $role)
-       <p>{{ $role->name }}</p>
-       <form action="{{ route('roles.destroy', $role->id) }}" method="POST" style="display:inline;">
-           @csrf
-           @method('DELETE')
-           <button type="submit" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</button>
-       </form>
-@endforeach
 </body>
 </html>

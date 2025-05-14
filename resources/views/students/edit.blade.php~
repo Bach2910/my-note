@@ -16,6 +16,16 @@
             {{ session('error') }}
         </div>
     @endif
+
+    @php
+        try {
+            // Mã xử lý gửi biểu mẫu (giả sử đây là nơi bạn xử lý lưu thông tin sinh viên)
+            // ...
+        } catch (Exception $e) {
+            Log::error($e);
+            return redirect()->back()->with('error', 'Đã xảy ra lỗi trong quá trình xử lý.');
+        }
+    @endphp
     <form class="form" method="POST" action="{{ route('students.update', $student->id) }}"
           enctype="multipart/form-data">
         @csrf

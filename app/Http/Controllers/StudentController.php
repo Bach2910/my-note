@@ -12,13 +12,19 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $students = Student::with('classes')->get();
-        return view('students.index', compact('students'));
+        $search = $request->input('search');
+        $query = Student::with('classes');
+        if ($search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%{$search}%");
+//                    ->orWhere('email', 'LIKE', "%{$search}%");
+            });
+        }
+        $students = $query->orderBy('id', 'desc')->paginate(4);
+        return view('students.index', compact('students', 'search'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -129,7 +135,7 @@ class StudentController extends Controller
                 if ($image->isValid()) {
                     $imageName = time() . '_' . uniqid() . '.' . $image->extension();
                     $image->move($destinationPath, $imageName);
-                    $imagePaths[] = 'uploads/' . $imageName; // Thêm đường dẫn vào mảng
+                    $imagePaths[] = 'uploads/' . $imageName;
                 }
             }
             $validate['image'] = implode(',', $imagePaths);
@@ -144,10 +150,9 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
+    public function destroy(string $id){
         $student = Student::findOrFail($id);
         $student->delete();
-        return redirect()->route('students.index')->with('success', 'Xóa sinh viên thành công');
+        return redirect()->route('students.index')->with('success', 'Xóa sinh viên thanh cong!');
     }
 }

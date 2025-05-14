@@ -79,7 +79,7 @@
                             {{$class['name']}}
                         </option>
                     @endforeach
-                </select><br>
+                </select>
                 @if ($errors->has('class_id'))
                     <span style="color: red;">{{ $errors->first('class_id') }}</span>
                 @endif

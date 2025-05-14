@@ -46,6 +46,8 @@ class ClassController extends Controller
     public function show(string $id)
     {
         //
+        $classes = Classes::with('students')->findOrFail($id);
+        return view('classes.show', compact('classes'));
     }
 
     /**

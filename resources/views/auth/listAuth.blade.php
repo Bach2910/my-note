@@ -2,7 +2,7 @@
 @section('content')
     <h1>Danh sách người dùng, role và quyền</h1>
     <button class="btn btn-primary"><a class="text-white" style="text-decoration: none" href="{{ route('list.permission')}}">Add New Permission for Role</a></button>
-    <button class="btn btn-primary"><a class="text-white" style="text-decoration: none" href="{{ route('roles.create')}}">Add New Role</a></button>
+    <button class="btn btn-success"><a class="text-white" style="text-decoration: none" href="{{ route('roles.create')}}">Add New Role</a></button>
     @foreach($users as $user)
         <div style="margin-bottom: 20px;">
             <strong>User:</strong> {{ $user->name }} ({{ $user->email }}) <br>
@@ -22,7 +22,7 @@
                         </option>
                     @endforeach
                 </select>
-                <button class="btn btn-primary" type="submit">Cập nhật</button>
+                <button class="btn btn-primary" type="submit">Change Role</button>
             </form>
             <strong>Permissions:</strong>
             <ul>

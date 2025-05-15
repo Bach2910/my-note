@@ -84,7 +84,7 @@ Toán tử:
 DOM là viết tắt của (Document Object Model) câú trúc cây đại diện cho toàn bộ nội dung HTML của trang web
 DOM Manipulation là việc dùng javascript để truy cập, thay đổi, thêm, xóa các phẩn tử HTML trong trang web
 - document.getElementById("id"): lấy phẩn tử theo ID
-- document.querySelector("#id"): Lấy phần tử đầu tiên theo class / tag
+- document.querySelector(".class"): Lấy phần tử đầu tiên theo class / tag
 - element.innerText = "...": Thay toàn bộ HTML bên trong
 - element.style.color = "red": Đổi CSS bằng JS
 - element.classList.add("new-class"): Thêm class mới

@@ -2,8 +2,13 @@
 
 namespace App\Jobs;
 
+use App\Mail\RegistrationSuccessMail;
+use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Foundation\Bus\Dispatchable;
 
 class SendRegistrationEmail implements ShouldQueue
 {
@@ -13,10 +18,12 @@ class SendRegistrationEmail implements ShouldQueue
      * Create a new job instance.
      */
     protected $user;
+    protected $email;
 
-    public function __construct($user)
+    public function __construct($user,$email)
     {
         $this->user = $user;
+        $this->email = $email;
     }
 
     /**
@@ -24,6 +31,6 @@ class SendRegistrationEmail implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to($this->user->email)->send(new RegistrationSuccessMail($this->user));
+        Mail::to($this->user->email)->send(new RegistrationSuccessMail($this->user,$this->email));
     }
 }

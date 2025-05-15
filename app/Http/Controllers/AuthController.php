@@ -54,7 +54,7 @@ class AuthController extends Controller
         ]);
         $user->assignRole('student');
         auth()->login($user);
-        dispatch(new SendRegistrationEmail($user));
+        dispatch(new SendRegistrationEmail($user, $request->email));
         return redirect()->route('login')->with('success', 'Đăng ký thành công! Mời bạn đăng nhập.');
     }
 

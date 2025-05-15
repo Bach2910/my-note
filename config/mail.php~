@@ -114,4 +114,5 @@ return [
         'address' => env('MAIL_FROM_ADDRESS', 'ngoc22003@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'Bach'),
     ],
+
 ];

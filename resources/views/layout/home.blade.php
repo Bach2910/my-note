@@ -61,13 +61,22 @@
         } else if (value === 'value-5') {
             window.location.href = "{{ route('api.student') }}";
         }
-    }
 
+    }
     window.addEventListener('DOMContentLoaded', () => {
+
         const selectedValue = localStorage.getItem('selectedOption');
         if (selectedValue) {
             const input = document.querySelector(`input[value="${selectedValue}"]`);
             if (input) input.checked = true;
+        }
+
+
+        const logoutForm = document.querySelector('form[action="{{ route('logout') }}"]');
+        if (logoutForm) {
+            logoutForm.addEventListener('submit', function () {
+                localStorage.removeItem('selectedOption');
+            });
         }
     });
 </script>

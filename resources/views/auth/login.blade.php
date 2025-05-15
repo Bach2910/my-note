@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-</head>
-<link rel="stylesheet" href="{{asset('assets/account.css')}}">
-<body>
-<h2>Login</h2>
+@extends('layout.account')
+@section('title','Login')
+@section('content')
 @if(session('error'))
     <p style="color:red;">{{ session('error') }}</p>
 @endif
@@ -14,7 +9,7 @@
         @csrf
         <p class="heading">Login</p>
         <input class="input" placeholder="Email" type="text" name="email">
-        <input class="input" placeholder="Password" type="text" name="password">
+        <input class="input" placeholder="Password" type="password" name="password">
         <div class="d-flex gap-3">
             <button class="btn">Submit</button>
             <button class="btn"><a style="text-decoration: none;color:black" href="{{route('register')}}">Sign Up</a>
@@ -22,5 +17,4 @@
         </div>
     </form>
 </div>
-</body>
-</html>
+@endsection

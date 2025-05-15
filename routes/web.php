@@ -15,7 +15,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.process');
-
+Route::delete('/users/{user}', [AuthController::class, 'destroy'])->name('users.destroy');
 Route::middleware('role:admin')->group(function () {
     Route::get('/list-account',[\App\Http\Controllers\RoleOrPermissionController::class,'index'])->name('list-account');
     Route::post('/list-account/{user}/change-role', [RoleOrPermissionController::class, 'changeRole'])->name('users.changeRole');

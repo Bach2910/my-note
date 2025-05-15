@@ -12,7 +12,7 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></link>
-    <link rel="stylesheet" href="{{asset('assets/navbar.css')}}">
+   <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
 </head>
 <body>
 <div class="container mt-2 d-flex justify-content-between">
@@ -78,4 +78,3 @@
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
 </html>
-

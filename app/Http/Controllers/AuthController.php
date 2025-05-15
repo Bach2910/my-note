@@ -2,35 +2,43 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendRegistrationEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+
 class AuthController extends Controller
 {
     //
-    public function ShowFormLogin(){
+    public function ShowFormLogin()
+    {
         return view('auth.login');
     }
-    public function login(Request $request){
-        $credentials = $request->only('email','password');
-        if(Auth::attempt($credentials)){
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('/students');
         }
-        return back()->with('error','Login failed');
+        return back()->with('error', 'Login failed');
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/');
     }
+
     public function showRegisterForm()
     {
         return view('auth.register');
     }
+
     public function register(Request $request)
     {
         $request->validate([
@@ -46,7 +54,18 @@ class AuthController extends Controller
         ]);
         $user->assignRole('student');
         auth()->login($user);
-
+        dispatch(new SendRegistrationEmail($user));
         return redirect()->route('login')->with('success', 'Đăng ký thành công! Mời bạn đăng nhập.');
+    }
+
+    public function destroy(User $user)
+    {
+        if (auth()->id() == $user->id) {
+            return back()->with('error', 'Bạn không thể xóa chính mình!');
+        }
+
+        $user->delete();
+
+        return redirect()->route('list-account')->with('success', 'Đã xóa tài khoản thành công!');
     }
 }

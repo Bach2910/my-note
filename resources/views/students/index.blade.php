@@ -3,8 +3,12 @@
     <h1>List of Students</h1>
     @can('create')
         <div class="d-flex gap-3 mb-2">
-            <a class="btn btn-primary" href="{{ route('students.create') }}">Create</a>
-            <a class="btn btn-success" href="{{route('api.student')}}">List students JSON</a>
+            @can('create')
+                <a class="btn btn-primary" href="{{ route('students.create') }}">Create</a>
+            @endcan
+            @can('show')
+                <a class="btn btn-success" href="{{route('api.student')}}">List students JSON</a>
+            @endcan
         </div>
     @endcan
     <form action="{{ route('students.index') }}" method="GET" class="d-flex mb-2" role="search">
@@ -17,13 +21,13 @@
     <table border="1" cellpadding="10" cellspacing="0" class="mb-2 table table-hover">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>Gender</th>
-            <th>Image</th>
-            <th>Class ID</th>
-            <th>Student ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Address</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Image</th>
+            <th scope="col">Class ID</th>
+            <th scope="col">Student ID</th>
             @can('view')
                 <th>Actions</th>
             @endcan
@@ -40,7 +44,7 @@
                     @if ($student->image)
                         @foreach (explode(',', $student->image) as $image)
                             <img src="{{ asset($image) }}" alt="Current Image"
-                                 style="max-width: 110px; max-height: 100px;">
+                                 style="max-width: 100px; max-height: 100px;">
                         @endforeach
                     @endif
                 </td>

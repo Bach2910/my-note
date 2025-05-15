@@ -5,11 +5,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 </head>
 <body>
 <h2 class="add-card mt-5">Create new student</h2>
-
 <section class="add-card page">
     <form class="form" method="POST" action="{{route('students.store')}}" enctype="multipart/form-data">
         @csrf

@@ -5,16 +5,29 @@
     <p style="color:red;">{{ session('error') }}</p>
 @endif
 <div class="form-center">
-    <form class="form" action="{{ route('login.process') }}" method="POST">
-        @csrf
-        <p class="heading">Login</p>
-        <input class="input" placeholder="Email" type="text" name="email">
-        <input class="input" placeholder="Password" type="password" name="password">
-        <div class="d-flex gap-3">
-            <button class="btn">Submit</button>
-            <button class="btn"><a style="text-decoration: none;color:black" href="{{route('register')}}">Sign Up</a>
-            </button>
-        </div>
-    </form>
+    <div class="form-container">
+        <p class="title">Login</p>
+        <form class="form" action="{{ route('login.process') }}" method="POST">
+            @csrf
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="" />
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="" />
+                <button type="button" class="eye" onclick="toggleType()" id="eye"><i class="fa-solid fa-eye"></i></button>
+                <div class="forgot">
+                    <a rel="noopener noreferrer" href="{{route('forget-password')}}">Forgot Password ?</a>
+                </div>
+            </div>
+            <button class="sign">Sign in</button>
+        </form>
+        <p class="signup">
+            Don't have an account?
+            <a rel="noopener noreferrer" href="{{route('register')}}" class="">Sign up</a>
+        </p>
+    </div>
 </div>
 @endsection
+

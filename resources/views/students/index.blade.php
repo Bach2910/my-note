@@ -6,7 +6,7 @@
             @can('create')
                 <a class="btn btn-primary" href="{{ route('students.create') }}">Create</a>
             @endcan
-            @can('show')
+            @can('view')
                 <a class="btn btn-success" href="{{route('api.student')}}">List students JSON</a>
             @endcan
         </div>
@@ -42,10 +42,10 @@
                 <td>{{ $student->gender }}</td>
                 <td class="image">
                     @if ($student->image)
-                        @foreach (explode(',', $student->image) as $image)
-                            <img src="{{ asset($image) }}" alt="Current Image"
-                                 style="max-width: 100px; max-height: 100px;">
-                        @endforeach
+                        @php
+                            $images = explode(',', $student->image);
+                        @endphp
+                        <p> {{ count($images) }} image</p>
                     @endif
                 </td>
                 <td>{{ $student->student_id }}</td>
@@ -53,9 +53,8 @@
                 @can('view')
                     <td>
                         @can('edit')
-                            <a href="{{ route('students.edit', $student->id) }}">
-                                <button class="btn btn-primary" type="button"><i class="fa-solid fa-pencil"></i>
-                                </button>
+                            <a href="{{ route('students.edit', $student->id) }}" class="btn btn-primary"
+                               type="button"><i class="fa-solid fa-pencil"></i>
                             </a>
                         @endcan
                         @can('delete')

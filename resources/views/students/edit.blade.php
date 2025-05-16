@@ -30,6 +30,9 @@
                 placeholder="Enter your full name"
                 value="{{ old('name', $student->name) }}"
             />
+            @if ($errors->has('name'))
+                <span style="color: red;">{{ $errors->first('name') }}</span>
+            @endif
         </label>
 
         <label for="email" class="label">
@@ -41,6 +44,9 @@
                 placeholder="Enter your email"
                 value="{{ old('email', $student->email) }}"
             />
+            @if ($errors->has('email'))
+                <span style="color: red;">{{ $errors->first('email') }}</span>
+            @endif
         </label>
 
         <label for="address" class="label">
@@ -52,6 +58,9 @@
                 placeholder="Enter your address"
                 value="{{ old('address', $student->address) }}"
             />
+            @if ($errors->has('address'))
+                <span style="color: red;">{{ $errors->first('address') }}</span>
+            @endif
         </label>
         <div class="split">
             <label for="student_id" class="label">
@@ -66,7 +75,6 @@
                     <span style="color: red;">{{ $errors->first('student_id') }}</span>
                 @endif
             </label>
-
             <label for="class_id" class="label">
                 <span class="title">Class</span>
                 <select name="class_id" class="input-field">

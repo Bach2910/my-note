@@ -66,8 +66,4 @@
     transform: translateX(0em) translateY(0em);
     box-shadow: none;
 }
-.form-center{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+

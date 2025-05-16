@@ -12,7 +12,7 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></link>
-   <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
 </head>
 <body>
 <div class="container mt-2 d-flex justify-content-between">
@@ -63,6 +63,7 @@
         }
 
     }
+
     window.addEventListener('DOMContentLoaded', () => {
 
         const selectedValue = localStorage.getItem('selectedOption');
@@ -70,8 +71,6 @@
             const input = document.querySelector(`input[value="${selectedValue}"]`);
             if (input) input.checked = true;
         }
-
-
         const logoutForm = document.querySelector('form[action="{{ route('logout') }}"]');
         if (logoutForm) {
             logoutForm.addEventListener('submit', function () {

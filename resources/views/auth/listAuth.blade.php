@@ -77,8 +77,8 @@
                 <div class="card__subtitle">Permission:
                     @foreach($user->roles as $role)
                         @foreach($role->permissions as $permission)
-                            <span
-                                style="background: aqua;border-radius: 5px;padding: 5px">{{ $permission->name }}</span>
+                            <div class="form-role"><span
+                                       style="">{{ $permission->name }}</span></div>
                         @endforeach
                     @endforeach
                 </div>

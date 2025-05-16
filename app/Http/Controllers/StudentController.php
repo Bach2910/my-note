@@ -42,7 +42,7 @@ class StudentController extends Controller
         //
         $validate = $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email|unique:students,email',
             'address' => 'required',
             'student_id' => 'required|unique:students,student_id',
             'gender' => 'required:in:male,female',
@@ -52,6 +52,8 @@ class StudentController extends Controller
             [
                 'name.required' => 'Please enter your full name',
                 'email.required' => 'Please enter your email',
+                'email.email' => 'Please write the correct email format with @',
+                'email.unique' => 'This email already exists',
                 'address.required' => 'Please enter your address',
                 'student_id.required' => 'Please enter your student id',
                 'student_id.unique' => 'This student id already exists',
@@ -61,7 +63,7 @@ class StudentController extends Controller
             ]);
         $destinationPath = public_path('uploads');
         if (!File::exists($destinationPath)) {
-            File::makeDirectory($destinationPath, 0777, true); // Tạo thư mục với quyền truy cập
+            File::makeDirectory($destinationPath, 0777, true);
         }
         $imagePaths = [];
         if ($request->hasFile('image')) {
@@ -69,7 +71,7 @@ class StudentController extends Controller
                 if ($image->isValid()) {
                     $imageName = time() . '_' . uniqid() . '.' . $image->extension();
                     $image->move($destinationPath, $imageName);
-                    $imagePaths[] = 'uploads/' . $imageName; // Thêm đường dẫn vào mảng
+                    $imagePaths[] = 'uploads/' . $imageName;
                 }
             }
         }
@@ -106,7 +108,7 @@ class StudentController extends Controller
 
         $validate = $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email|unique:students,email,' . $id,
             'address' => 'required',
             'student_id' => 'required|unique:students,student_id,' . $id,
             'gender' => 'required|in:male,female',
@@ -115,6 +117,8 @@ class StudentController extends Controller
         ], [
             'name.required' => 'Please enter your full name',
             'email.required' => 'Please enter your email',
+            'email.email' => 'Please write the correct email format with @',
+            'email.unique' => 'This email already exists',
             'address.required' => 'Please enter your address',
             'student_id.required' => 'Please enter your student id',
             'student_id.unique' => 'This student id already exists',

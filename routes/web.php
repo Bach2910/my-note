@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\StudentApiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleOrPermissionController;
+use App\Http\Controllers\ForgotPasswordController;
 
 Route::resource('/students',\App\Http\Controllers\StudentController::class)->middleware('auth');
 Route::resource('/classes',\App\Http\Controllers\ClassController::class);
@@ -12,6 +13,11 @@ Route::resource('/classes',\App\Http\Controllers\ClassController::class);
 Route::get('/', [AuthController::class, 'ShowFormLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/forget-password', [\App\Http\Controllers\ForgotPasswordController::class, 'showForgotPasswordForm'])->name('forget-password');
+Route::post('/forget-password', [\App\Http\Controllers\ForgotPasswordController::class, 'sendLinkEmail'])->name('forget-password.send');
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
+
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.process');

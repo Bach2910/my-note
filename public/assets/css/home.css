@@ -115,13 +115,16 @@
     font-weight: 500;
     font-size: 18px;
     color: var(--main-color);
+
 }
 
 .card__subtitle {
+    display: flex;
     margin-top: 10px;
     font-weight: 400;
     font-size: 15px;
     color: var(--submain-color);
+    gap:3px;
 }
 
 .card__btn {
@@ -233,4 +236,11 @@
 
 .sign-up:hover {
     opacity: 0.9;
+}
+.form-role{
+    background: aqua;
+    border-radius: 5px;
+    width: 60px;
+    padding: 5px;
+    text-align: center;
 }

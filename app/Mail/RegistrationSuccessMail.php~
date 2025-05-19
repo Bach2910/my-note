@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
+
+class RegistrationSuccessMail extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    /**
+     * Create a new message instance.
+     */
+    use Queueable, SerializesModels;
+
+    public $user;
+    public $email;
+
+    public function __construct($user,$email)
+    {
+        $this->user = $user;
+        $this->email = $email;
+    }
+
+    public function build()
+    {
+        return $this->subject('Đăng ký thành công')
+            ->view('emails.registration_success')
+            ->with(['email' => $this->email]);
+    }
+}

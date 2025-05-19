@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Models\Classes;
+use App\Models\Classroom;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ClassModelTest extends TestCase
@@ -12,7 +12,7 @@ class ClassModelTest extends TestCase
 
     public function test_create_class(): void
     {
-        $classes = new Classes([
+        $classes = new Classroom([
             'name' => 'CNTT3 k1',
             'description' => 'Lớp công nghệ thông tin',
         ]);
@@ -23,7 +23,7 @@ class ClassModelTest extends TestCase
 
     public function test_update_class(): void
     {
-        $classes = Classes::factory()->create();
+        $classes = Classroom::factory()->create();
 
         $response = $this->put("/classes/{$classes->id}", [
             'name' => 'CNTT3 k1',

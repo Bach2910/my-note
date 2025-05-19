@@ -22,12 +22,11 @@
         <thead>
         <tr>
             <th scope="col">Name</th>
-            <th scope="col">Email</th>
             <th scope="col">Address</th>
-            <th scope="col">Gender</th>
+            <th scope="col">Birth Date</th>
             <th scope="col">Image</th>
+            <th scope="col">MSV</th>
             <th scope="col">Class ID</th>
-            <th scope="col">Student ID</th>
             @can('view')
                 <th>Actions</th>
             @endcan
@@ -36,10 +35,9 @@
         <tbody>
         @foreach ($students as $student)
             <tr>
-                <td>{{ $student->name }}</td>
-                <td>{{ $student->email }}</td>
+                <td>{{ $student->full_name }}</td>
                 <td>{{ $student->address }}</td>
-                <td>{{ $student->gender }}</td>
+                <td>{{$student->birth_date}}</td>
                 <td class="image">
                     @if ($student->image)
                         @php
@@ -48,10 +46,15 @@
                         <p> {{ count($images) }} image</p>
                     @endif
                 </td>
-                <td>{{ $student->student_id }}</td>
+                <td>{{ $student->student_code }}</td>
                 <td>{{ $student->classes ? $student->classes->name : 'Không có lớp' }}</td>
                 @can('view')
                     <td>
+                        @can('view')
+                            <a href="{{ route('students.show', $student->id) }}" class="btn btn-success"
+                               type="button"><i class="fa-solid fa-book"></i>
+                            </a>
+                        @endcan
                         @can('edit')
                             <a href="{{ route('students.edit', $student->id) }}" class="btn btn-primary"
                                type="button"><i class="fa-solid fa-pencil"></i>

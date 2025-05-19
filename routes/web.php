@@ -7,8 +7,8 @@ use App\Http\Controllers\RoleOrPermissionController;
 use App\Http\Controllers\ForgotPasswordController;
 
 Route::resource('/students',\App\Http\Controllers\StudentController::class)->middleware('auth');
-Route::resource('/classes',\App\Http\Controllers\ClassController::class);
-
+Route::resource('/classes',\App\Http\Controllers\ClassroomController::class);
+Route::resource('/departments',\App\Http\Controllers\DepartmentController::class);
 
 Route::get('/', [AuthController::class, 'ShowFormLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');

@@ -16,9 +16,12 @@ class ClassSeeder extends Seeder
         //
         $faker = Faker::create();
         for($i = 0; $i<=10; $i++){
-            DB::table('classes')->insert([
+            DB::table('classrooms')->insert([
+                'department_id' => $faker->numberBetween(1,5),
+                'class_code' => $faker->name,
                 'name' => 'CNTT'.$i,
-                'description' => $faker->sentence(),
+                'course_year' => $faker->year,
+                'max_students' => $faker->numberBetween(30,50),
             ]);
         }
     }

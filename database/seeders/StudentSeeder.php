@@ -17,13 +17,15 @@ class StudentSeeder extends Seeder
         $faker = Faker::create();
         for($i = 0;$i<=10;$i++){
             DB::table('students')->insert([
-                'name' => $faker->name,
-                'email' => $faker->email,
-                'student_id' => $faker->unique()->randomNumber(4),
-                'address' => $faker->address,
+                'classroom_id' => $faker->numberBetween(1,10),
+                'student_code' => $faker->unique()->randomNumber(4),
+                'full_name' => $faker->name,
                 'gender' => $faker->randomElement(['male', 'female']),
+                'birth_date' => $faker->date,
+                'email' => $faker->email,
+                'phone' => $faker->phoneNumber,
                 'image' => $faker->imageUrl(),
-                'class_id' => $faker->numberBetween(1,10),
+                'address' => $faker->address,
             ]);
         }
     }

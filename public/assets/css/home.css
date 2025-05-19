@@ -2,7 +2,7 @@
     display: none;
 }
 .radio-input {
-    --container_width: 520px;
+    --container_width: 687px;
     position: relative;
     display: flex;
     align-items: center;
@@ -31,7 +31,7 @@
     display: none;
     position: absolute;
     height: 100%;
-    width: calc(var(--container_width) / 4);
+    width: calc(var(--container_width) / 5);
     z-index: 0;
     left: 0;
     top: 0;
@@ -48,21 +48,23 @@
 }
 
 .radio-input label:nth-child(1):has(input:checked) ~ .selection {
-    transform: translateX(calc(var(--container_width) * 0 / 4));
+    transform: translateX(calc(var(--container_width) * 0 / 5));
 }
 
 .radio-input label:nth-child(2):has(input:checked) ~ .selection {
-    transform: translateX(calc(var(--container_width) * 1 / 4));
+    transform: translateX(calc(var(--container_width) * 1 / 5));
 }
 
 .radio-input label:nth-child(3):has(input:checked) ~ .selection {
-    transform: translateX(calc(var(--container_width) * 2 / 4));
+    transform: translateX(calc(var(--container_width) * 2 / 5));
 }
 
 .radio-input label:nth-child(4):has(input:checked) ~ .selection {
-    transform: translateX(calc(var(--container_width) * 3 / 4));
+    transform: translateX(calc(var(--container_width) * 3 / 5));
 }
-
+.radio-input label:nth-child(5):has(input:checked) ~ .selection {
+    transform: translateX(calc(var(--container_width) * 4 / 5));
+}
 .image {
     display: flex;
     gap: 10px;

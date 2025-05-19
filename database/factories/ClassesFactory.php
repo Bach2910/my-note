@@ -3,9 +3,9 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Classes;
+use App\Models\Classroom;
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Classes>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Classroom>
  */
 class ClassesFactory extends Factory
 {
@@ -14,7 +14,7 @@ class ClassesFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    protected $model = Classes::class;
+    protected $model = Classroom::class;
     public function definition(): array
     {
         return [

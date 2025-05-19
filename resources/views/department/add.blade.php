@@ -8,41 +8,35 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 </head>
 <body>
-<h2>Classes: {{ $classes->name }}</h2>
+<h2 class="add-card mt-5">Add classes</h2>
 <section class="add-card page">
-    <form class="form">
-        @foreach ($classes->students as $student)
-            <label for="name" class="label">
-                <span class="title">Name Student</span>
-                <input
-                    class="input-field"
-                    type="text"
-                    name="name"
-                    value="{{$student->full_name}}"
-                />
-            </label>
-        @endforeach
+    <form class="form" method="POST" action="{{route('departments.store')}}">
+        @csrf
         <label for="name" class="label">
-            <span class="title">Department</span>
+            <span class="title">Name Class</span>
             <input
                 class="input-field"
                 type="text"
                 name="name"
-                value="{{ $classes->department->name ?? 'Không có khoa' }}"
             />
+            @if($errors->has('name'))
+                <span style="color: red;">{{ $errors->first('name') }}</span>
+            @endif
         </label>
         <label for="name" class="label">
             <span class="title">Code</span>
             <input
                 class="input-field"
                 type="text"
-                name="name"
-                value="{{ $classes->department->code ?? 'Không có khoa' }}"
+                name="code"
             />
+            @if($errors->has('code'))
+                <span style="color: red;">{{ $errors->first('code') }}</span>
+            @endif
         </label>
+        <input class="checkout-btn" type="submit" value="Update"/>
     </form>
 </section>
-<a class="checkout-btn" type="submit" href="{{route('classes.index')}}">Back</a>
 </body>
 </html>
 

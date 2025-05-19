@@ -8,47 +8,37 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 </head>
 <body>
-<h2 class="add-card mt-5">Edit Student</h2>
-
+<h2 class="add-card mt-5">Edit student</h2>
 <section class="add-card page">
-    @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-    <form class="form" method="POST" action="{{ route('students.update', $student->id) }}"
-          enctype="multipart/form-data">
+    <form class="form" method="POST" action="{{route('students.update',$student->id)}}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-
-        <label for="name" class="label">
+        <label for="full_name" class="label">
             <span class="title">Name</span>
             <input
                 class="input-field"
                 type="text"
-                name="name"
+                name="full_name"
                 placeholder="Enter your full name"
-                value="{{ old('name', $student->name) }}"
+                value="{{old('full_name',$student->full_name)}}"
             />
-            @if ($errors->has('name'))
-                <span style="color: red;">{{ $errors->first('name') }}</span>
-            @endif
         </label>
-
+        @if ($errors->has('full_name'))
+            <span style="color: red;">{{ $errors->first('full_name') }}</span>
+        @endif
         <label for="email" class="label">
             <span class="title">Email</span>
             <input
                 class="input-field"
-                type="email"
+                type="text"
                 name="email"
                 placeholder="Enter your email"
-                value="{{ old('email', $student->email) }}"
+                value="{{old('email',$student->email)}}"
             />
-            @if ($errors->has('email'))
-                <span style="color: red;">{{ $errors->first('email') }}</span>
-            @endif
         </label>
-
+        @if ($errors->has('email'))
+            <span style="color: red;">{{ $errors->first('email') }}</span>
+        @endif
         <label for="address" class="label">
             <span class="title">Address</span>
             <input
@@ -56,45 +46,79 @@
                 type="text"
                 name="address"
                 placeholder="Enter your address"
-                value="{{ old('address', $student->address) }}"
+                value="{{old('address',$student->address)}}"
+
             />
             @if ($errors->has('address'))
                 <span style="color: red;">{{ $errors->first('address') }}</span>
             @endif
         </label>
+        <label for="birth_date" class="label">
+            <span class="title">Birth Date</span>
+            <input
+                class="input-field"
+                type="date"
+                name="birth_date"
+                placeholder="Enter your birth date"
+                value="{{old('birth_date',$student->birth_date)}}"
+
+            />
+            @if ($errors->has('birth_date'))
+                <span style="color: red;">{{ $errors->first('birth_date') }}</span>
+            @endif
+        </label>
+        <label for="phone" class="label">
+            <span class="title">Phone</span>
+            <input
+                class="input-field"
+                type="text"
+                name="phone"
+                placeholder="Enter your phone"
+                value="{{old('phone',$student->phone)}}"
+            />
+            @if ($errors->has('phone'))
+                <span style="color: red;">{{ $errors->first('phone') }}</span>
+            @endif
+        </label>
         <div class="split">
-            <label for="student_id" class="label">
+            <label for="ExDate" class="label">
                 <span class="title">Student ID</span>
                 <input
+                    id="ExDate"
                     class="input-field"
                     type="text"
-                    name="student_id"
-                    placeholder="Enter your ID"
-                    value="{{ old('student_id', $student->student_id) }}">
-                @if ($errors->has('student_id'))
-                    <span style="color: red;">{{ $errors->first('student_id') }}</span>
+                    name="student_code"
+                    placeholder="Enter your id"
+                    value="{{old('student_code',$student->student_code)}}"
+                />
+                @if ($errors->has('student_code'))
+                    <span style="color: red;">{{ $errors->first('student_code') }}</span>
                 @endif
             </label>
-            <label for="class_id" class="label">
+            <label for="cvv" class="label">
                 <span class="title">Class</span>
-                <select name="class_id" class="input-field">
+                <select name="classroom_id" class="input-field" >
                     <option value="" style="justify-items: center;align-items: center">___Class___</option>
                     @foreach($classes as $class)
-                        <option
-                            value="{{ $class->id }}" {{ old('class_id', $student->class_id) == $class->id ? 'selected' : '' }}>
-                            {{ $class->name }}
+                        <option value="{{$class['id']}}" {{old('classroom_id',$student->classroom_id) == $class->id ? 'selected' : '' }}>
+                            {{$class['name']}}
                         </option>
                     @endforeach
                 </select>
+                @if ($errors->has('classroom_id'))
+                    <span style="color: red;">{{ $errors->first('classroom_id') }}</span>
+                @endif
             </label>
             <label for="gender" class="label">
                 <span class="title">Gender</span>
-                <select name="gender" class="input-field">
+                <select name="gender" class="input-field" >
                     <option value="">___Gender___</option>
-                    <option value="male" {{ old('gender', $student->gender) == 'male' ? 'selected' : '' }}>Male</option>
-                    <option value="female" {{ old('gender', $student->gender) == 'female' ? 'selected' : '' }}>Female
-                    </option>
+                    <option value="male" {{ old('gender',$student->gender) == 'male' ? 'selected' : '' }}>Male</option>
+                    <option value="female" {{ old('gender',$student->gender) == 'female' ? 'selected' : '' }}>Female</option>
                 </select>
+                @if ($errors->has('gender'))
+                    <span style="color: red;">{{ $errors->first('gender') }}</span>
+                @endif
             </label>
         </div>
         <label class="custum-file-upload" for="file">
@@ -119,7 +143,6 @@
                         <img src="{{ asset($image) }}" alt="Current Image" style="max-width: 150px; max-height: 150px;">
                     @endforeach
                 @endif
-
             </div>
             @if ($errors->has('image.*'))
                 <span style="color: red;">{{ $errors->first('image.*') }}</span>
@@ -130,3 +153,4 @@
 </section>
 </body>
 </html>
+

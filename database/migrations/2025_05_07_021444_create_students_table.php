@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('student_id')->unique();
-            $table->string('address');
+            $table->unsignedBigInteger('classroom_id')->nullable();
+            $table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('set null');
+            $table->string('student_code')->unique();
+            $table->string('full_name');
             $table->string('gender');
+            $table->date('birth_date');
+            $table->string('email')->unique();
+            $table->string('phone')->unique();
             $table->string('image');
-            $table->unsignedBigInteger('class_id')->nullable();
-            $table->foreign('class_id')->references('id')->on('classes')->onDelete('set null');
+            $table->string('address');
             $table->timestamps();
         });
     }

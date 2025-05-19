@@ -2,8 +2,6 @@
 @section('content')
     <button class="mt-3 btn btn-primary"><a class="text-white" style="text-decoration: none"
                                             href="{{ route('list.permission')}}">Change Permission For Role</a></button>
-    <button class="mt-3 btn btn-success"><a class="text-white" style="text-decoration: none"
-                                            href="{{ route('roles.create')}}">Add New Role</a></button>
     <div class="d-flex flex-wrap mt-3">
         @foreach($users as $user)
             <div class="card mb-3 card__main me-3">
@@ -78,7 +76,7 @@
                     @foreach($user->roles as $role)
                         @foreach($role->permissions as $permission)
                             <div class="form-role"><span
-                                       style="">{{ $permission->name }}</span></div>
+                                    style="">{{ $permission->name }}</span></div>
                         @endforeach
                     @endforeach
                 </div>

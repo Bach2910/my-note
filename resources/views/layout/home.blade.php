@@ -27,12 +27,17 @@
         </label>
         <label onclick="selectOption('value-3')">
             <input type="radio" id="value-3" name="value-radio" value="value-3">
-            <span>List account</span>
+            <span>List Department</span>
         </label>
         <label onclick="selectOption('value-4')">
             <input type="radio" id="value-4" name="value-radio" value="value-4">
+            <span>List account</span>
+        </label>
+        <label onclick="selectOption('value-5')">
+            <input type="radio" id="value-5" name="value-radio" value="value-5">
             <span>List Role</span>
         </label>
+
         <span class="selection"></span>
     </div>
     <div class="d-flex gap-3 mt-2 text-center align-text-center ">
@@ -54,12 +59,12 @@
             window.location.href = "{{ route('students.index') }}";
         } else if (value === 'value-2') {
             window.location.href = "{{ route('classes.index') }}";
-        } else if (value === 'value-3') {
-            window.location.href = "{{ route('list-account') }}";
         } else if (value === 'value-4') {
-            window.location.href = "{{ route('roles.index') }}";
+            window.location.href = "{{ route('list-account') }}";
         } else if (value === 'value-5') {
-            window.location.href = "{{ route('api.student') }}";
+            window.location.href = "{{ route('roles.index') }}";
+        } else if (value === 'value-3') {
+            window.location.href = "{{ route('departments.index') }}";
         }
 
     }

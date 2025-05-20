@@ -69,10 +69,10 @@ o Trường hợp commit đã từng push lên remote rồi thì sử dụng l�
 
 ## Kéo code mới nhất từ GitHub: git pull
 
-## Gộp nhiều commit thành một commit
+## Squash Commit(Gộp nhiều commit thành một commit)
 Step 1:
 
-    git log –oneline: dùng lệnh git log để xem lịch sử commit dòng mới nhất
+    git log -–oneline: dùng lệnh git log để xem lịch sử commit dòng mới nhất
 
 Step 2:
 
@@ -87,7 +87,9 @@ Step 5: Thay đổi mô tả commit bằng cách xóa mô tả commit cũ hoặc
 Step 6: Kiểm tra lại lịch sử commit bằng git log và push lên remote bằng git push -f.  git push -f userid/task/taskid
 
 ## Đưa commit từ nhánh này qua nhánh khác
-* Ta dùng: git cherry
+* Ta dùng: 
+
+      git cherry
 * trong đó có các cú pháp như:
 
       git cherry-pick [<tùy chọn>] <commit>… :Câu lệnh chính
@@ -112,31 +114,6 @@ Step 6: Kiểm tra lại lịch sử commit bằng git log và push lên remote 
 - Commit 1 lần cho cả 2 nhánh
 
 + Yêu cầu: Commit A cần apply cho 2 branch là branch-X và branch-Y
-        
-- Resolve conflict:
-+ Step1: fix conflict
-+ Step2: Add các file đã resolve conflict bằng git add
-+ Step3: Thực hiện git cherry-pick –continue.
-
-## Git merge và git rebase
-- git merge: là một thao tác nhanh chóng sau khi merge xong thì 1 commit merge mới sẽ xuất hiện ở cuối lịch sử commit ở nhánh gốc 
-+ Ưu điểm: Thực hiện nhanh chóng và đơn giản và Merge làm cho các nhánh tồn tại trước đó không bị thay đổi
-+ Nhược điểm: Lịch sử commit khi sử dụng merge nhìn khó hiểu
-Cách dùng:
-
-        git checkout feature    
-        git merge master
-
-
-- git rebase:la thao tác đưa toàn bộ những commit mới tạo ở nhánh A nối tiếp vào ngọn của nhánh B tức là thêm vào đầu tiên
-+ Ưu điểm: Lịch sử commit rõ ràng, dễ theo dõi và loại bỏ những commit không cần thiết như khi sử dụng git merge
-+ Nhược điểm: lịch sử commit bị ghi lại, dẫn đến khi push sẽ cần thêm tham số force và nếu có lỗi xảy ra thì sẽ khó để truy xuất xem nguyên nhân của lỗi đến từ đâu
-Cách dùng: 
-
-        git checkout feature
-        git rebase master
-
-
 Trong trường hợp đang ở branch-X, tạo ra commit A, sau đó chuyển sang branch-Y, sau đó cherry-pick commit A với git cherry-pick
 
         git add -A
@@ -145,6 +122,82 @@ Trong trường hợp đang ở branch-X, tạo ra commit A, sau đó chuyển s
         git checkout branch-Y
         git cherry-pick branch-X
 
+- Resolve conflict:
++ Step1: fix conflict
++ Step2: Add các file đã resolve conflict bằng git add
++ Step3: Thực hiện git cherry-pick –continue.
+
+## Git merge và git rebase
+
+- git merge: là một thao tác nhanh chóng sau khi merge xong thì 1 commit merge mới sẽ xuất hiện ở cuối lịch sử commit ở nhánh gốc.  
++ Ưu điểm: Thực hiện nhanh chóng và đơn giản và Merge làm cho các nhánh tồn tại trước đó không bị thay đổi
++ Nhược điểm: Lịch sử commit khi sử dụng merge nhìn khó hiểu
+Cách dùng:
+
+        git checkout feature    
+        git merge master
+Nếu đang ở nhánh feature, lệnh trên sẽ lấy toàn bộ thay đổi của master và gộp vào feature
+
+- git rebase:la thao tác đưa toàn bộ những commit mới tạo ở nhánh A nối tiếp vào ngọn của nhánh B tức là thêm vào đầu tiên
++ Ưu điểm: Lịch sử commit rõ ràng, dễ theo dõi và loại bỏ những commit không cần thiết như khi sử dụng git merge
++ Nhược điểm: lịch sử commit bị ghi lại, dẫn đến khi push sẽ cần thêm tham số force và nếu có lỗi xảy ra thì sẽ khó để truy xuất xem nguyên nhân của lỗi đến từ đâu
+Cách dùng: 
+
+        git checkout feature
+        git rebase master
+Lấy commit mới từ feature và đặt lại sau các commit mới nhất của master, giúp lịch sử tuyến tính.
+
+## Git stash
+
+- Được dùng để lưu tạm thời các thay đổi chưa commit để cho ta có thể chuyển sang nhánh khác hoặc làm việc khác mà không mất công việc đang dở.
+
+      git stash: Tạm lưu thay đổi
+      
+      git stash list: Xem danh sách tạm thời
+      
+      git stash apply: Khôi phục stash mới nhất
+      
+      git stash pop: Khôi phục và xóa luôn khỏi stash
+      
+      git stash drop stash @{n}: Xóa stash cụ thể
+      
+      git stash clear: Xóa toàn bộ stash
+      
+      git stash -u: Stash cả file chưa được track (untracked files)(-u tương đương --include-untracked)
+
+
+## Git Flow
+
+- Là mô hình quản lý nhánh (Branch Model), là chiến lược phân chia và quản lý các nhánh Git theo từng vai trò cụ thể: phát triển, tính năng, sửa lỗi, phát hành
+
+- Các loại nhánh trong Git Flow
+      Nhánh	                    Vai trò
+      master (hoặc main)	    Chứa mã ổn định đã được phát hành
+      develop	                Nhánh chính để phát triển; chứa code mới đã merge từ các nhánh feature
+      feature/*	                Dùng để phát triển tính năng mới
+      release/*	                Chuẩn bị cho một phiên bản phát hành chính thức
+      hotfix/*	                Dùng để sửa lỗi khẩn cấp từ master/main
+
+- Quy trình chuẩn Git flow
+  + Bắt đầu 1 tính năng mới: 
+
+        git flow feature start login form 
+  + hoàn thành tính năng:
+
+        git flow feature finish login-form
+    
+  + Chuẩn bị phát hành:
+
+        git flow release start 1.0.0
+
+  + Kết thúc phát hành:
+
+        git flow release finsish 1.0.0
+
+  + Sửa lỗi:
+  
+        git flow hotfix start fix-login-bug // Tạo hotfix/fix-login-bug từ master
+        git flow hotfix finish fix-login-bug // Merge vào master và develop, tag bản vá
 ## Task FLows
 - Cách bước thực hiện task:
 

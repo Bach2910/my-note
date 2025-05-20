@@ -103,11 +103,11 @@ Step 6: Kiểm tra lại lịch sử commit bằng git log và push lên remote 
       git cherry-pick --quit	Hủy cherry-pick hiện tại, không hoàn tác các thay đổi trong file
       git cherry-pick --abort	Hủy cherry-pick và quay về trạng thái trước cherry-pick (cực kỳ an toàn nếu có lỗi)
 
-![img.png](img.png)
+![img.png](image/img.png)
 
 - Đưa 1 commit từ 1 nhánh qua 1 nhánh khác:
 
-![img_1.png](img_1.png)
+![img_1.png](image/img_1.png)
 
 - Commit 1 lần cho cả 2 nhánh
 
@@ -183,15 +183,15 @@ Step 12:Deploy code  cho test + nhờ test trong trường hợp test có bug th
 
 + terminal:
 
-![img_2.png](img_2.png)
+![img_2.png](image/img_2.png)
 
 + Gui của OS support:
 
-![img_3.png](img_3.png)
+![img_3.png](image/img_3.png)
 
 + sử dụng gui của một số tool thứ 3 (Ví dụ: tortoisegit):
 
-![img_4.png](img_4.png)
+![img_4.png](image/img_4.png)
 
 ## Submodule
 
@@ -206,7 +206,7 @@ Step 12:Deploy code  cho test + nhờ test trong trường hợp test có bug th
 - Remove submodule:
 khi submodule không sử dụng, hoặc bị lỗi cần add lại chạy các lệnh sau để thực hiện remove submodule:
 
-![img_5.png](img_5.png)
+![img_5.png](image/img_5.png)
 
 - Trong đó:
 + Repository - Địa chỉ repo cần thêm vào

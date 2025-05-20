@@ -1,0 +1,96 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Classroom;
+use App\Models\Department;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class ClassroomController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+        $user = Auth::user();
+        $layout = $user->hasRole('admin') ? 'layout.homeLayout' : 'layout.userLayout';
+        $classes = Classroom::with('department')->get();
+        return view('classes.index', compact('classes','layout'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+        $department = Department::all();
+        return view('classes.add',compact('department'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+        $validate = $request->validate([
+            'department_id' => 'required',
+            'class_code' => 'required|unique:classrooms,class_code',
+            'name' => 'required',
+            'course_year' => 'required',
+            'max_students' => 'required|lt:50',
+        ]);
+        Classroom::create($validate);
+        return redirect()->route('classes.index')->with('success', 'Classroom created successfully');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $classes = Classroom::with(['students', 'department'])->findOrFail($id);
+        return view('classes.detail', compact('classes'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+        $classes = Classroom::findOrFail($id);
+        $department = Department::all();
+        return view('classes.edit',compact('classes','department'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $classes = Classroom::findOrFail($id);
+        $validate = $request->validate([
+            'department_id' => 'required',
+            'class_code' => 'required|unique:classrooms,class_code,'.$id,
+            'name' => 'required',
+            'course_year' => 'required',
+            'max_students' => 'required|lt:50',
+        ]);
+        $classes->update($validate);
+        return redirect()->route('classes.index')->with('success', 'Classroom created successfully');
+    }
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $classes = Classroom::findOrFail($id);
+        $classes->delete();
+        return redirect()->route('classes.index')->with('success', 'Classroom deleted successfully');
+    }
+}

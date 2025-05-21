@@ -18,7 +18,7 @@ class StudentController extends Controller
         $query = Student::with('classes');
         if ($search) {
             $query->where(function ($query) use ($search) {
-                $query->where('name', 'LIKE', "%{$search}%");
+                $query->where('full_name', 'LIKE', "%{$search}%");
 //                    ->orWhere('email', 'LIKE', "%{$search}%");
             });
         }

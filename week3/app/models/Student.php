@@ -40,10 +40,18 @@ class Student {
         $stmt = $this->pdo->prepare("DELETE FROM students WHERE id = ?");
         return $stmt->execute([$id]);
     }
-    public function studentExists($studentCode) {
+    public function studentExists($studentCode, $id = null)
+    {
         $query = "SELECT COUNT(*) FROM students WHERE student_code = :student_code";
+        if ($id !== null) {
+            $query .= " AND id != :id";
+        }
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':student_code', $studentCode);
+
+        if ($id !== null) {
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        }
         $stmt->execute();
         return $stmt->fetchColumn() > 0;
     }

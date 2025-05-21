@@ -1,6 +1,4 @@
-@php
-    $layout = $layout ?? 'layout.userLayout';
-@endphp
+
 @extends($layout)
 @section('title','List of Students')
 @section('content')

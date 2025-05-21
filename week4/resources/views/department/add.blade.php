@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 </head>
 <body>
-<h2 class="add-card mt-5 text-center">Add classes</h2>
+<h2 class="add-card mt-5 text-center">Create New Department</h2>
 <section class="add-card page">
     <form class="form" method="POST" action="{{route('departments.store')}}">
         @csrf

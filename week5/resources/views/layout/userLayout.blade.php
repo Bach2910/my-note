@@ -50,8 +50,8 @@
             window.location.href = "{{ route('students.index') }}";
         } else if (value === 'value-2') {
             window.location.href = "{{ route('classes.index') }}";
-        } else if (value === 'value-4') {
-            window.location.href = "{{ route('list-account') }}";
+        } else if (value === 'value-3') {
+            window.location.href = "{{ route('departments.index') }}";
         }
     }
     window.addEventListener('DOMContentLoaded', () => {

@@ -28,7 +28,7 @@
 
             />
             <?php if (!empty($_SESSION['errors']['email'])): ?>
-            <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['email'])); ?></span>
+                <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['email'])); ?></span>
                 <?php unset($_SESSION['errors']['email']); ?>
             <?php endif; ?>
             <?php if (!empty($_SESSION['exitEmail'])): ?>
@@ -46,7 +46,7 @@
                     value="<?= htmlspecialchars($_SESSION['old_input']['address'] ?? '') ?>"
             />
             <?php if (!empty($_SESSION['errors']['address'])): ?>
-            <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['address'])); ?></span>
+                <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['address'])); ?></span>
                 <?php unset($_SESSION['errors']['address']); ?>
             <?php endif; ?>
         </label>
@@ -61,12 +61,12 @@
                         value="<?= htmlspecialchars($_SESSION['old_input']['phone'] ?? '') ?>"
                 />
                 <?php if (!empty($_SESSION['errors']['phone'])): ?>
-                <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['phone'])); ?></span>
+                    <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['phone'])); ?></span>
                     <?php unset($_SESSION['errors']['phone']); ?>
                 <?php endif; ?>
             </label>
             <label for="student_code" class="label">
-                <span class="title">Student ID</span>
+                <span class="title">Student Code</span>
                 <input
                         id="student_code"
                         class="input-field"
@@ -75,7 +75,7 @@
                         value="<?= htmlspecialchars($_SESSION['old_input']['student_code'] ?? '') ?>"
                 />
                 <?php if (!empty($_SESSION['errors']['student_code'])): ?>
-                     <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['student_code'])); ?></span>
+                    <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['student_code'])); ?></span>
                     <?php unset($_SESSION['errors']['student_code']); ?>
                 <?php endif; ?>
                 <?php if (!empty($_SESSION['exits'])): ?>
@@ -94,7 +94,7 @@
                     <?php endforeach; ?>
                 </select>
                 <?php if (!empty($_SESSION['errors']['class_id'])): ?>
-                     <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['class_id'])); ?></span>
+                    <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['class_id'])); ?></span>
                     <?php unset($_SESSION['errors']['class_id']); ?>
                 <?php endif; ?>
             </label>
@@ -117,7 +117,7 @@
             <input id="file" type="file" name="images[]" multiple ><br>
         </label>
         <?php if (!empty($_SESSION['upload_errors'])): ?>
-        <span style="color:red"><?php foreach ($_SESSION['upload_errors'] as $error): ?><?= htmlspecialchars($error) ?><?php endforeach; ?></span>
+            <span style="color:red"><?php foreach ($_SESSION['upload_errors'] as $error): ?><?= htmlspecialchars($error) ?><?php endforeach; ?></span>
             <?php unset($_SESSION['upload_errors']); ?>
         <?php endif; ?>
         <input class="checkout-btn" type="submit" value="Add"/>

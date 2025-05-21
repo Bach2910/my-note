@@ -9,8 +9,13 @@
                     type="text"
                     name="name"
                     value="<?= $student['name'] ?>"
-            required/>
+            />
+            <?php if (!empty($_SESSION['errors']['name'])): ?>
+                <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['name'])); ?></span>
+                <?php unset($_SESSION['errors']['name']); ?>
+            <?php endif; ?>
         </label>
+
         <label for="name" class="label">
             <span class="title">Email</span>
             <input
@@ -18,26 +23,27 @@
                     type="text"
                     name="email"
                     value="<?= $student['email'] ?>"
-            required/>
+            />
+            <?php if (!empty($_SESSION['errors']['email'])): ?>
+                <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['email'])); ?></span>
+                <?php unset($_SESSION['errors']['email']); ?>
+            <?php endif; ?>
         </label>
+
         <label for="name" class="label">
             <span class="title">Address</span>
             <input
                     class="input-field"
                     type="text"
                     name="address"
-                    value="<?= $student['phone'] ?>"
-            required/>
+                    value="<?= $student['address'] ?>"
+            />
+            <?php if (!empty($_SESSION['errors']['address'])): ?>
+                <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['address'])); ?></span>
+                <?php unset($_SESSION['errors']['address']); ?>
+            <?php endif; ?>
         </label>
-        <label for="name" class="label">
-            <span class="title">Address</span>
-            <input
-                    class="input-field"
-                    type="text"
-                    name="address"
-                    value="<?= $student['phone'] ?>"
-            required/>
-        </label>
+
         <div class="split">
             <label for="ExDate" class="label">
                 <span class="title">Phone</span>
@@ -46,12 +52,35 @@
                         class="input-field"
                         type="text"
                         name="phone"
-                        value="<?= $student['address'] ?>"
-                required/>
+                        value="<?= $student['phone'] ?>"
+                />
+                <?php if (!empty($_SESSION['errors']['phone'])): ?>
+                    <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['phone'])); ?></span>
+                    <?php unset($_SESSION['errors']['phone']); ?>
+                <?php endif; ?>
             </label>
+
+            <label for="student_code" class="label">
+                <span class="title">Student Code</span>
+                <input
+                        class="input-field"
+                        type="text"
+                        name="student_code"
+                        value="<?= $student['student_code'] ?>"
+                        />
+                <?php if (!empty($_SESSION['errors']['student_code'])): ?>
+                    <span style="color:red"><?= htmlspecialchars(($_SESSION['errors']['student_code'])); ?></span>
+                    <?php unset($_SESSION['errors']['student_code']); ?>
+                <?php endif; ?>
+                <?php if (!empty($_SESSION['exits'])): ?>
+                    <span style="color:red"><?= htmlspecialchars(($_SESSION['exits'])); ?></span>
+                    <?php unset($_SESSION['exits']); ?>
+                <?php endif; ?>
+            </label>
+
             <label for="cvv" class="label">
                 <span class="title">Class</span>
-                <select name="class_id" class="input-field" required>
+                <select name="class_id" class="input-field" >
                     <?php foreach ($classes as $class): ?>
                         <option value="<?= $class['id'] ?>" <?= $student['class_id'] == $class['id'] ? 'selected' : '' ?>>
                             <?= htmlspecialchars($class['class_name']) ?>

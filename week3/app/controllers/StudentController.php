@@ -146,11 +146,12 @@ class StudentController
         $id = $_POST['id'];
         $student = (new Student())->findById($id);
         $uploadedImages = [];
+        $errors = [];
 
         $uploadPath = __DIR__ . '/../../public/assets/uploads/';
         if (!file_exists($uploadPath)) @mkdir($uploadPath, 0777, true);
 
-        $maxFileSize = 5 * 1024 * 1024; // 5MB
+        $maxFileSize = 5 * 1024 * 1024;
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
 
         foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
@@ -160,41 +161,45 @@ class StudentController
             $fileExtension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
 
             if ($fileError !== UPLOAD_ERR_OK) {
-
                 $errors[] = "Lỗi khi upload file: {$originalName}";
                 continue;
-
             }
-
-            // Kiểm tra định dạng file hợp lệ
             if (!in_array($fileExtension, $allowedExtensions)) {
                 $errors[] = "Định dạng không hợp lệ cho file: {$originalName}";
                 continue;
             }
-
-            // Kiểm tra dung lượng file không vượt quá 5MB
             if ($fileSize > $maxFileSize) {
                 $errors[] = "File quá lớn (quá 5MB): {$originalName}";
                 continue;
             }
 
-            // Đặt tên mới cho file để tránh trùng
             $filename = time() . '_' . basename($originalName);
             $target = $uploadPath . $filename;
 
-            // Di chuyển file vào thư mục uploads
             if (move_uploaded_file($tmp_name, $target)) {
                 $uploadedImages[] = 'assets/uploads/' . $filename;
             } else {
                 $errors[] = "Không thể lưu file: {$originalName}";
             }
         }
-        // Xử lý thông báo lỗi
+
         if (!empty($errors)) {
             $_SESSION['upload_errors'] = $errors;
             $_SESSION['old_input'] = $_POST;
             header("Location: index.php?controller=student&action=edit&id={$id}");
             exit();
+        }
+
+        if (!empty($uploadedImages)) {
+            if (!empty($student['images'])) {
+                $oldImages = explode(',', $student['images']);
+                foreach ($oldImages as $oldImage) {
+                    $oldPath = __DIR__ . '/../../public/' . $oldImage;
+                    if (file_exists($oldPath)) {
+                        unlink($oldPath);
+                    }
+                }
+            }
         }
 
         $images = !empty($uploadedImages) ? implode(',', $uploadedImages) : $student['images'];
@@ -203,15 +208,45 @@ class StudentController
             'name' => $_POST['name'],
             'email' => $_POST['email'],
             'phone' => $_POST['phone'],
+            'student_code' => $_POST['student_code'],
             'address' => $_POST['address'],
             'class_id' => $_POST['class_id'],
             'images' => $images
         ];
 
-        (new Student())->update($id, $data);
+        $_SESSION['errors'] = [];
+        $fields = [
+            'name' => 'Enter your name',
+            'email' => 'Enter your email',
+            'phone' => 'Enter your phone',
+            'address' => 'Enter your address',
+            'student_code' => 'Enter your student_code',
+            'class_id' => 'Enter your class_id',
+        ];
+        foreach ($fields as $field => $message) {
+            if (empty($_POST[$field])) {
+                $_SESSION['errors'][$field] = $message;
+            }
+        }
+        $studentModel = new Student();
+        if ($studentModel->studentExists($data['student_code'], $id)) {
+            $_SESSION['old_input'] = $_POST;
+            $_SESSION['exits'] = 'Student code already exists';
+            header("Location: index.php?controller=student&action=edit&id={$id}");
+            exit();
+        }
+
+        if (!empty($_SESSION['errors'])) {
+            $_SESSION['old_input'] = $_POST;
+            header("Location: index.php?controller=student&action=edit&id={$id}");
+            exit();
+        }
+
+        $studentModel->update($id, $data);
         header("Location: index.php?controller=student&action=index");
         exit();
     }
+
 
     public function delete()
     {

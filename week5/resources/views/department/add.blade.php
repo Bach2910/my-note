@@ -14,7 +14,7 @@
     <form class="form" method="POST" action="{{route('departments.store')}}">
         @csrf
         <label for="name" class="label">
-            <span class="title">Name Class</span>
+            <span class="title">Name Department</span>
             <input
                 class="input-field"
                 type="text"

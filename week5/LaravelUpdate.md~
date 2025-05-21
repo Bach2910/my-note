@@ -94,7 +94,176 @@ tạo resoucre:
         return new StudentResource($sinhvien);
 
 ## Unit Test và Feature Test
+
 - Unit Test: Kiểm tra một đơn vị nhỏ như một hàm hoặc một class hoạt động đúng.
 
       php artisan make:test TinhToanTest --unit
 - Feature Test: Kiểm tra toàn bộ một chức năng, ví dụ: kiểm tra form đăng nhập, tạo mới dữ liệu qua HTTP request.
+
+        php artisan make:test SinhVienFeatureTest
+
+## Ví dụ 
+* tạo ra chức năng nhận mail báo đăng ký tài khoản thành công:
+Ta dùng đến Queue và Job. 
+
+        php artisan make:job SendWelcomeNotification
+Step 1:trong file SendWelcomeNotification:
+
+    class SendWelcomeNotification implements ShouldQueue
+    {
+        use InteractsWithQueue, Queueable, SerializesModels;
+        
+            protected $user;
+        
+            public function __construct(User $user)
+            {
+                $this->user = $user;
+            }
+        
+            public function handle(): void
+            {
+                Notification::send($this->user, new WelcomeNotification());
+            }
+    }
+
+Step 2: tạo ra file trong thư mục mail:
+
+        php artisan make:mail WelcomeNotification
+
+trong file WelcomeNotification:
+
+    class RegistrationSuccessMail extends Mailable
+    {
+    use Queueable, SerializesModels;
+    
+        public $user;
+    
+        public function __construct($user)
+        {
+            $this->user = $user;
+        }
+    
+        public function build()
+        {
+            return $this->subject('Đăng ký thành công')
+                        ->view('emails.registration_success');
+        }
+    }
+Step 3:tạo ra view để hiện thị nội dung cần
+
+Step 4:tạo ra job:
+        
+    php artisan make:job SendRegistrationEmail
+
+trong file SendRegistrationEmail:
+
+    class SendRegistrationEmail implements ShouldQueue
+    {
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    
+        protected $user;
+    
+        public function __construct($user)
+        {
+            $this->user = $user;
+        }
+    
+        public function handle()
+        {
+            Mail::to($this->user->email)->send(new RegistrationSuccessMail($this->user));
+        }
+    }
+Step 5:sửa lại lại trong phần Register
+thêm dòng này vào: 
+
+    dispatch(new SendRegistrationEmail($user));
+
+* Chỉnh sửa lại nội dung cho form reset password:
+ta dùng đến Notifiable
+
+Cách 1: Tùy chỉnh email reset mật khẩu bằng Markdown
+
+Step 1: Tạo notification tùy chỉnh
+
+        php artisan make:notification ResetPasswordNotification
+
+Step 2: Tùy chỉnh nội dung trong file
+
+    class CustomResetPassword extends Notification
+    {
+    public $token;
+    
+        public function __construct($token)
+        {
+            $this->token = $token;
+        }
+    
+        public function via($notifiable)
+        {
+            return ['mail'];
+        }
+    
+        public function toMail($notifiable)
+        {
+            $url = url(route('password.reset', [
+                'token' => $this->token,
+                'email' => $notifiable->getEmailForPasswordReset()
+            ], false));
+    
+            return (new MailMessage)
+                ->subject('🔐 Đặt lại mật khẩu của bạn')
+                ->greeting('👋 Xin chào ' . $notifiable->name . '!')
+                ->line('Bạn nhận được email này vì đã yêu cầu đặt lại mật khẩu.')
+                ->action('👉 Nhấn vào đây để đặt lại mật khẩu', $url)
+                ->line('⚠️ Liên kết sẽ hết hạn sau 3 phút.')
+                ->salutation('Trân trọng, đội ngũ hỗ trợ');
+        }
+    }
+
+Step 3: Vào file app/Model/user edit lại thêm
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new CustomResetPassword($token));
+    }
+
+Cách 2: Gửi Email với HTML thủ công
+
+Step 1:
+
+        php artisan make:notification ResetPasswordNotification
+
+Step 2:
+
+    class CustomResetPassword extends Notification
+    {
+    public $token;
+    
+            public function __construct($token)
+            {
+                $this->token = $token;
+            }
+        
+            public function via($notifiable)
+            {
+                return ['mail'];
+            }
+        
+            public function toMail($notifiable)
+            {
+                $url = url(route('password.reset', [
+                    'token' => $this->token,
+                    'email' => $notifiable->getEmailForPasswordReset()
+                ], false));
+        
+                return (new MailMessage)
+                    ->subject('🔐 Đặt lại mật khẩu của bạn')
+                    ->view('emails.reset-password',
+                [
+                    'url' => $url,
+                    'name' => $notifiable->name,
+                ]
+            );
+            }
+    }    
+Step 3:Nhớ tạo ra file view emails.reset-password để edit mail theo style của mình

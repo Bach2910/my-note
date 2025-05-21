@@ -39,8 +39,9 @@ class ForgotPasswordController extends Controller
             'email' => 'required|email',
             'password' => 'required|confirmed|min:1',
             'token' => 'required'
+        ],[
+            'email.required' => 'Email is required',
         ]);
-
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user) use ($request) {
@@ -49,7 +50,6 @@ class ForgotPasswordController extends Controller
                 Auth::login($user);
             }
         );
-
         return $status === Password::PASSWORD_RESET
             ? redirect()->route('login')->with('status', __($status))
             : back()->withErrors(['email' => [__($status)]]);

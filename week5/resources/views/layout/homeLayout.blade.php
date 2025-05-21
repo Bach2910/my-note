@@ -15,7 +15,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/adminHome.css') }}">
 </head>
 <body>
-<div class="container mt-2 d-flex justify-content-between">
+    <!-- Error Messages -->
+
+
+    <div class="container mt-2 d-flex justify-content-between">
     <div class="radio-input">
         <label onclick="selectOption('value-1')">
             <input type="radio" id="value-1" name="value-radio" value="value-1">

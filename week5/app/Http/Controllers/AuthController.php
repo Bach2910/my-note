@@ -17,6 +17,10 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:2',
+        ]);
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
@@ -25,7 +29,6 @@ class AuthController extends Controller
         }
         return back()->with('error', 'Login failed');
     }
-
     public function logout(Request $request)
     {
         Auth::logout();
@@ -55,7 +58,7 @@ class AuthController extends Controller
         $user->assignRole('student');
         auth()->login($user);
         dispatch(new SendRegistrationEmail($user, $request->email));
-        return redirect()->route('login')->with('success', 'Đăng ký thành công! Mời bạn đăng nhập.');
+        return redirect()->route('login')->with('status', 'Đăng ký thành công! Mời bạn đăng nhập.');
     }
 
     public function destroy(User $user)
@@ -63,9 +66,7 @@ class AuthController extends Controller
         if (auth()->id() == $user->id) {
             return back()->with('error', 'Bạn không thể xóa chính mình!');
         }
-
         $user->delete();
-
         return redirect()->route('list-account')->with('success', 'Đã xóa tài khoản thành công!');
     }
 }

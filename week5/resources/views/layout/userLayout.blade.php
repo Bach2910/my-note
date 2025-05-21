@@ -31,12 +31,18 @@
         </label>
         <span class="selection"></span>
     </div>
-    <div class="d-flex gap-3 mt-2 text-center align-text-center ">
-        <span class="text-center mt-1">{{Auth::user()->name}}</span>
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button class="btn btn-danger" type="submit">Đăng xuất</button>
-        </form>
+    <div class="dropdown mt-2">
+        <button class="btn btn-primary dropdown-toggle w-100" type="button" id="adminDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            {{Auth::user()->name}}
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+            <li>
+                <form action="{{ route('logout') }}" method="POST" class="px-3 py-2">
+                    @csrf
+                    <button type="submit" class="btn btn-danger w-100">Đăng xuất</button>
+                </form>
+            </li>
+        </ul>
     </div>
 </div>
 <div class="container">
@@ -69,10 +75,8 @@
         }
     });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </html>

@@ -16,15 +16,24 @@
                     <label for="name">Username</label>
                     <input type="text" name="name" id="name" placeholder=""/>
                 </div>
+                @if($errors->has('name'))
+                    <p style="color:red;">{{ $errors->first('name') }}</p>
+                @endif
                 <div class="input-group">
                     <label for="email">Email</label>
                     <input type="email" name="email" id="email" placeholder=""/>
                 </div>
+                @if($errors->has('email'))
+                    <p style="color:red;">{{ $errors->first('email') }}</p>
+                @endif
                 <div class="input-group">
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password" placeholder=""/>
                     <button type="button" class="eye" onclick="toggleType()" id="eye"><i class="fa-solid fa-eye"></i></button>
                 </div>
+                @if($errors->has('password'))
+                    <p style="color:red;">{{ $errors->first('password') }}</p>
+                @endif
                 <div class="input-group">
                     <label for="password">Confirm Password</label>
                     <input type="password" name="password_confirmation" id="password_confirmation" placeholder=""/>

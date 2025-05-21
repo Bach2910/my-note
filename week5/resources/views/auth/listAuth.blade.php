@@ -3,6 +3,19 @@
 @section('content')
     <button class="mt-3 btn btn-primary"><a class="text-white" style="text-decoration: none"
                                             href="{{ route('list.permission')}}">Change Permission For Role</a></button>
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="d-flex flex-wrap mt-3">
         @foreach($users as $user)
             <div class="card mb-3 card__main me-3">
@@ -103,7 +116,6 @@
                 <div class="card__wrapper">
                 </div>
             </div>
-
         @endforeach
     </div>
 @endsection

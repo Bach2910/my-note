@@ -14,7 +14,19 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Dumping data for table student.classes: ~13 rows (approximately)
+
+-- Dumping database structure for student
+CREATE DATABASE IF NOT EXISTS `student` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `student`;
+
+-- Dumping structure for table student.classes
+CREATE TABLE IF NOT EXISTS `classes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table student.classes: ~12 rows (approximately)
 INSERT INTO `classes` (`id`, `name`) VALUES
 	(1, 'Lớp CNTT 5'),
 	(2, 'Lớp CNTT 2'),
@@ -29,6 +41,17 @@ INSERT INTO `classes` (`id`, `name`) VALUES
 	(11, 'Nguyễn Văn A'),
 	(12, 'QTKD 32'),
 	(15, 'QTKD 3223');
+
+-- Dumping structure for table student.students
+CREATE TABLE IF NOT EXISTS `students` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `class_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `class_id` (`class_id`),
+  CONSTRAINT `students_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table student.students: ~3 rows (approximately)
 INSERT INTO `students` (`id`, `name`, `email`, `class_id`) VALUES

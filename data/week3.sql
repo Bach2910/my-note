@@ -14,6 +14,20 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
+-- Dumping database structure for student_management
+CREATE DATABASE IF NOT EXISTS `student_management` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `student_management`;
+
+-- Dumping structure for table student_management.classes
+CREATE TABLE IF NOT EXISTS `classes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `class_name` varchar(100) NOT NULL,
+  `description` text,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 -- Dumping data for table student_management.classes: ~10 rows (approximately)
 INSERT INTO `classes` (`id`, `class_name`, `description`, `created_at`) VALUES
 	(2, 'CNTT K21B', 'Lớp Công nghệ thông tin khóa 21B', '2025-05-09 04:33:57'),
@@ -26,6 +40,22 @@ INSERT INTO `classes` (`id`, `class_name`, `description`, `created_at`) VALUES
 	(10, 'QTKD K23A', 'Lớp Quản trị kinh doanh khóa 23A', '2025-05-09 04:33:57'),
 	(11, 'QTKD 323', 'sadadwdwadasdadwad', '2025-05-09 05:53:32'),
 	(12, 'QTKD 32242', 'ds', '2025-05-19 08:21:47');
+
+-- Dumping structure for table student_management.students
+CREATE TABLE IF NOT EXISTS `students` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `address` text,
+  `student_code` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `class_id` int DEFAULT NULL,
+  `images` text COMMENT 'Danh sách ảnh, cách nhau bởi dấu phẩy',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `class_id` (`class_id`),
+  CONSTRAINT `students_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `classes` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table student_management.students: ~14 rows (approximately)
 INSERT INTO `students` (`id`, `name`, `email`, `phone`, `address`, `student_code`, `class_id`, `images`, `created_at`) VALUES

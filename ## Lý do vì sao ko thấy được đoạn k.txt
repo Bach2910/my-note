@@ -1,0 +1,77 @@
+## Lý do vì sao ko thấy được đoạn khởi tạo này
+
+AccountRepository trong file này tôi có thấy đoạn nào khởi tạo như này đâu  public function __construct(Account $model)
+    {
+        parent::__construct($model);
+    }
+
+
+1 Trong FacultyService:
+public function __construct(
+    FacultyRepositoryInterface $repository,
+    PackageRepository $packageRepository,
+    AccessRepositoryInterface $accessRepository
+) {
+    parent::__construct($repository);
+    $this->packageRepository = $packageRepository;
+    $this->accessRepository = $accessRepository;
+}
+
+2 Trong RepositoryServiceProvider
+
+đã đăng ký thằng FaculityInterface là 
+
+$this->app->bind(FacultyRepositoryInterface::class, AccountRepository::class);
+
+3 lên khi Laravel khởi tạo FacultyService:
+1. Thấy FacultyRepositoryInterface
+2. Tìm implementation được bind
+3. Thấy AccountRepository được bind với FacultyRepositoryInterface
+4. Tạo mới AccountRepository với Account
+5. AccountRepository được inject vào FacultyService
+
+4. flow thực thi
+
+// 1. Khi khởi tạo FacultyService
+$facultyService = new FacultyService(
+    new AccountRepository(new Account()), // Laravel tự động inject
+    new PackageRepository(),
+    new AccessRepository()
+);
+
+// 2. Khi gọi createFaculty
+$faculty = $this->repository->create($facultyData);
+
+// 3. Flow thực thi:
+AccountRepository::create($facultyData)
+    -> BaseRepository::create($facultyData)
+        -> $this->model::create($facultyData) // $this->model là Account
+            -> Account::create($facultyData)  // Tạo mới Account
+
+
+Laravel tự động handle việc khởi tạo AccountRepository với Account thông qua:
+
+1 Dependency Injection:
+Khi thấy FacultyRepositoryInterface
+Tìm implementation được bind (AccountRepository)
+Tạo mới AccountRepository với Account
+
+2 Service Provider:
+// Trong RepositoryServiceProvider
+$this->app->bind(FacultyRepositoryInterface::class, AccountRepository::class)//
+
+
+## tôi đang không hiểu lắm trong đoạn mã này có đoạn nào tôi dùng bảo sẽ lưu giá trị bằng file nào trong Repositories vậy
+
+1: $faculty = $this->repository->create($facultyData);//Dòng lưu dữ liệu
+
+2: Flow thực thi
+
+$faculty = $this->repository->create($facultyData);
+
+// 2. AccountRepository kế thừa BaseRepository
+AccountRepository::create($facultyData)
+    -> BaseRepository::create($facultyData)
+        -> $this->model::create($facultyData) // $this->model là Account
+            -> Account::create($facultyData)  // Tạo mới Account
+
